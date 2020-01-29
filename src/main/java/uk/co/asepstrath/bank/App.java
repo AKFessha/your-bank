@@ -8,9 +8,12 @@ import io.jooby.hikari.HikariModule;
 import org.slf4j.Logger;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App extends Jooby {
 
@@ -54,6 +57,14 @@ public class App extends Jooby {
     public void onStart() {
         Logger log = getLog();
         log.info("Starting Up...");
+
+        List<Account> l = new ArrayList<>();
+        l.add(new Account(50, "Rachel"));
+        l.add(new Account(100, "Monica"));
+        l.add(new Account(76, "Phoebe"));
+        l.add(new Account(BigDecimal.valueOf(23.90), "Joey"));
+        l.add(new Account(BigDecimal.valueOf(54.32), "Ross"));
+
 
         // Fetch DB Source
         DataSource ds = require(DataSource.class);
