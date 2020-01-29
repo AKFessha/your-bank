@@ -45,7 +45,7 @@ public class AccountTests {
 
     @Test
     public void superSaver(){
-        Account a = new Account(BigDecimal.valueOf(20));
+        Account a = new Account(BigDecimal.valueOf(20), "John Doe");
         a.deposit(BigDecimal.valueOf(10));
         a.deposit(BigDecimal.valueOf(10));
         a.deposit(BigDecimal.valueOf(10));
@@ -61,7 +61,7 @@ public class AccountTests {
 
     @Test
     public void pennies(){
-        Account a = new Account(BigDecimal.valueOf(5.45));
+        Account a = new Account(BigDecimal.valueOf(5.45), "John Doe");
         a.deposit(BigDecimal.valueOf(17.56));
         assertEquals(BigDecimal.valueOf(23.01),a.getBalance());
 

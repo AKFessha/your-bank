@@ -57,6 +57,8 @@ public class App extends Jooby {
     public void onStart() {
         Logger log = getLog();
         log.info("Starting Up...");
+        List<Account> l = new ArrayList<>();
+
 
         List<Account> l = new ArrayList<>();
         l.add(new Account(50, "Rachel"));
