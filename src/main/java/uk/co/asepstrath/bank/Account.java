@@ -46,4 +46,12 @@ public class Account {
             this.bal =  this.bal.subtract(BigDecimal.valueOf(ammount));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "bal=" + bal +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
