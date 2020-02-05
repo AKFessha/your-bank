@@ -1,4 +1,5 @@
 package uk.co.asepstrath.bank;
+import com.google.gson.Gson;
 import io.jooby.annotations.*;
 
 import java.math.BigDecimal;
@@ -21,6 +22,12 @@ public class Controller {
 
     @GET
     public String Accounts(){
-        return l.toString();
+        String json = new Gson().toJson(l );
+        return json;
     }
+
+
+
+
+
 }
