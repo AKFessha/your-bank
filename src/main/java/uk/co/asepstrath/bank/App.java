@@ -64,6 +64,7 @@ public class App extends Jooby {
         l.add(new Account(76, "Phoebe"));
         l.add(new Account(BigDecimal.valueOf(23.90), "Joey"));
         l.add(new Account(BigDecimal.valueOf(54.32), "Ross"));
+        l.add(new Account(3, "Chandler"));
 
 
         // Fetch DB Source
