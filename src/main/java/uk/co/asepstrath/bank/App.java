@@ -58,13 +58,6 @@ public class App extends Jooby {
     public void onStart() {
         Logger log = getLog();
         log.info("Starting Up...");
-        List<Account> l = new ArrayList<>();
-        l.add(new Account(50, "Rachel"));
-        l.add(new Account(100, "Monica"));
-        l.add(new Account(76, "Phoebe"));
-        l.add(new Account(BigDecimal.valueOf(23.90), "Joey"));
-        l.add(new Account(BigDecimal.valueOf(54.32), "Ross"));
-        l.add(new Account(3, "Chandler"));
 
 
         // Fetch DB Source
