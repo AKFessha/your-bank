@@ -20,8 +20,8 @@ public class Controller {
 
     }
 
-    @GET
-    public String Accounts(){
+    @GET("/json")
+    public String jasonEnd(){
         String json = new Gson().toJson(l );
         return json;
     }
