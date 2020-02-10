@@ -12,6 +12,10 @@ public class Account {
         this.name = "John Doe";
     }
 
+    public String getName(){
+        return name;
+    }
+
     public Account(BigDecimal startingBalance, String n){
         this.bal = startingBalance;
         this.name = n;
