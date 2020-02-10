@@ -19,6 +19,15 @@ public class Controller {
         l.add(new Account(3, "Chandler"));
     }
 
+    public List<Account> getList(){
+        return l;
+    }
+
+    @GET("/list")
+    public String list(){
+        return l.toString();
+    }
+
     @GET("/json")
     public String jasonEnd(){
         String json = new Gson().toJson(l );
