@@ -1,10 +1,10 @@
 package uk.co.asepstrath.bank;
 import com.google.gson.Gson;
+import io.jooby.ModelAndView;
 import io.jooby.annotations.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Path("/account")
 public class Controller {
@@ -17,7 +17,6 @@ public class Controller {
         l.add(new Account(BigDecimal.valueOf(23.90), "Joey"));
         l.add(new Account(BigDecimal.valueOf(54.32), "Ross"));
         l.add(new Account(3, "Chandler"));
-
     }
 
     @GET("/json")
@@ -26,8 +25,13 @@ public class Controller {
         return json;
     }
 
+    @GET("/moustache")
+    public ModelAndView accounts() {
+        Map<String, Object> model = new HashMap<>();
 
+        model.put("accounts", l);
 
+        return new ModelAndView("accounts.hbs", model);
 
-
+    }
 }
