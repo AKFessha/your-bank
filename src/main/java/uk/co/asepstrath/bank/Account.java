@@ -20,7 +20,7 @@ public class Account {
         this.bal = startingBalance;
         this.name = n;
     }
-    public Account(int startingBal, String n){
+    public Account(double startingBal, String n){
         this.bal = BigDecimal.valueOf(startingBal);
         this.name = n;
     }
