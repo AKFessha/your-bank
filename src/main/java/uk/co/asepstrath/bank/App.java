@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -64,10 +65,18 @@ public class App extends Jooby {
         DataSource ds = require(DataSource.class);
         // Open Connection to DB
         try (Connection connection = ds.getConnection()) {
-            //
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE Example (Key varchar(255),Value varchar(255))");
-            stmt.executeUpdate("INSERT INTO Example " + "VALUES ('WelcomeMessage', 'Welcome to A Bank')");
+            //stmt.executeUpdate("CREATE TABLE Example (Key varchar(255),Value varchar(255))");
+            //stmt.executeUpdate("INSERT INTO Example " + "VALUES ('WelcomeMessage', 'Welcome to A Bank')");
+            String sql = "CREATE TABLE IF NOT EXISTS accounts (\n"
+                    + " id SERIAL PRIMARY KEY,\n"
+                    + "name VARCHAR(20) NOT NULL,\n"
+                    + "balance FLOAT NOT NULL);";
+            stmt.execute(sql);
+            connection.close();
+            String exampleQuery = "SELECT * from accounts";
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println(rs);
         } catch (SQLException e) {
             log.error("Database Creation Error",e);
         }
