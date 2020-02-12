@@ -23,18 +23,15 @@ public class Controller {
         return l;
     }
 
-    @GET("/list")
-    public String list(){
-        return l.toString();
-    }
+
 
     @GET("/json")
-    public String jasonEnd(){
-        String json = new Gson().toJson(l );
-        return json;
+    public List<Account> jasonEnd(){
+
+        return l;
     }
 
-    @GET("/moustache")
+    @GET("/VFA")
     public ModelAndView accounts() {
         Map<String, Object> model = new HashMap<>();
 
