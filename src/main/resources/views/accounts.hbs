@@ -7,13 +7,14 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    <table>
+<br>
+    <table class="table table-dark">
         <th>Name</th>
         <th>Balance</th>
         {{#accounts}}
          <tr>
-             <td>{{name}}</td>
-             <td>£{{balance}}</td>
+             <td scope="col">{{name}}</td>
+             <td scope="col">£{{balance}}</td>
          </tr>
         {{/accounts}}
     </table>
