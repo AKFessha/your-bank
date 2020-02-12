@@ -19,16 +19,14 @@ public class Controller {
         l.add(new Account(3, "Chandler"));
     }
 
-    public List<Account> getList(){
-        return l;
-    }
 
 
 
     @GET("/json")
-    public List<Account> jasonEnd(){
+    public String jasonEnd(){
+        String json = new Gson().toJson(l );
+        return json;
 
-        return l;
     }
 
     @GET("/VFA")
