@@ -23,7 +23,7 @@ public class UnitTest {
             assertEquals(StatusCode.OK, rsp.getStatusCode());
         });
     }
-
+    /*
     @Test
     public void json(){
         Controller c = new Controller();
@@ -34,6 +34,7 @@ public class UnitTest {
             assertEquals(StatusCode.OK, rsp.getStatusCode());
         });
     }
+    */
    /* @Test
     public void moustache(){
         Controller c = new Controller();

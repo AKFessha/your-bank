@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,8 +71,14 @@ public class App extends Jooby {
                     + "balance FLOAT NOT NULL);";
             stmt.execute(sql);
             connection.close();
+            String insertion = "INSERT INTO employees (name, balance) "
+                    + "VALUES (?,?)";
+            PreparedStatement prep = connection.prepareStatement(insertion);
+            Controller c = new Controller();
+            prep.setString(1, c.l.get(0).getName());
+            prep.setBigDecimal(2, c.l.get(0).getBalance());
             String exampleQuery = "SELECT * from accounts";
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(exampleQuery);
             System.out.println(rs);
         } catch (SQLException e) {
             log.error("Database Creation Error",e);

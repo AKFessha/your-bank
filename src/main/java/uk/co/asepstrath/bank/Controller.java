@@ -8,7 +8,7 @@ import java.util.*;
 
 @Path("/account")
 public class Controller {
-    private List<Account> l = new ArrayList<>();
+    List<Account> l = new ArrayList<>();
     public Controller(){
 
         l.add(new Account(50, "Rachel"));
