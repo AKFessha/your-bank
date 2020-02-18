@@ -1,5 +1,9 @@
 package uk.co.asepstrath.bank;
 
+import kong.unirest.GenericType;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonObjectMapper;
+import kong.unirest.Unirest;
 import uk.co.asepstrath.bank.example.ExampleController;
 import io.jooby.Jooby;
 import io.jooby.handlebars.HandlebarsModule;
@@ -71,6 +75,7 @@ public class App extends Jooby {
         } catch (SQLException e) {
             log.error("Database Creation Error",e);
         }
+
     }
 
     /*

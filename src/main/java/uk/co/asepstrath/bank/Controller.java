@@ -2,6 +2,8 @@ package uk.co.asepstrath.bank;
 import com.google.gson.Gson;
 import io.jooby.ModelAndView;
 import io.jooby.annotations.*;
+import kong.unirest.GenericType;
+import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
 
@@ -24,6 +26,12 @@ public class Controller {
         l.add(new Account(756.80, "Lily Aldrin"));
         l.add(new Account(254.00, "Marshall Eriksen"));
         l.add(new Account(1635.52, "Robin Scherbatsky"));
+
+        List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
+        }).getBody();
+        for(int i = 0; i < apiAcc.size(); i++) {
+            l.add(apiAcc.get(i));
+        }
     }
 
     public List<Account> getList(){
@@ -39,7 +47,7 @@ public class Controller {
 
 
         @GET("/VFA")
-    public ModelAndView accounts() {
+        public ModelAndView accounts() {
         Map<String, Object> model = new HashMap<>();
 
         model.put("accounts", l);
@@ -48,8 +56,8 @@ public class Controller {
 
     }
     @GET("/api")
-    public String getDataFromWeb() {
-        return  Unirest.get("http://api.asep-strath.co.uk/api/team2/accounts").asString().getBody();
+        public String getDataFromWeb() {
+        return Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asString().getBody();
     }
 
 }
