@@ -8,6 +8,7 @@ import kong.unirest.Unirest;
 
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 @Path("/account")
@@ -50,6 +51,18 @@ public class Controller {
         public ModelAndView accounts() {
         Map<String, Object> model = new HashMap<>();
 
+        for(int i = 0; i < l.size(); i++){
+            String currency = l.get(i).getCurrency();
+            String id = l.get(i).getId();
+            String accountType = l.get(i).getAccountType();
+            BigDecimal balance = l.get(i).getBalance();
+            String name = l.get(i).getName();
+            model.put("currency", currency);
+            model.put("id",id);
+            model.put("accountType", accountType);
+            model.put("balance", balance);
+            model.put("name",name);
+        }
         model.put("accounts", l);
 
         return new ModelAndView("accounts.hbs", model);

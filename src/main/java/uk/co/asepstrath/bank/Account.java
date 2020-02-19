@@ -1,6 +1,7 @@
 package uk.co.asepstrath.bank;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class Account {
@@ -34,6 +35,18 @@ public class Account {
     public Account(double startingBal, String n){
         this.balance = BigDecimal.valueOf(startingBal);
         this.name = n;
+    }
+
+    public String getCurrency(){
+        return currency;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public String getAccountType(){
+        return accountType;
     }
 
     public void deposit(BigDecimal amount) {
