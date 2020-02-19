@@ -2,7 +2,6 @@ package uk.co.asepstrath.bank;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 
 public class Account {
     private String id;
@@ -10,6 +9,7 @@ public class Account {
     private BigDecimal balance;
     private String currency;
     private String accountType;
+    private String highProfile = "No";
 
     public Account(){
         this.balance = BigDecimal.ZERO;
@@ -24,6 +24,17 @@ public class Account {
         this.accountType = accountType;
     }
 
+    public void setHighProfile(){
+        if(accountType.equals("Savings Account") || accountType.equals("Checking Account")
+            || accountType.equals("Money Market Account") || accountType.equals("Investment Account")) {
+            highProfile = "Yes";
+        }
+    }
+
+    public String getHighProfile(){
+        return highProfile;
+    }
+
     public String getName(){
         return name;
     }
@@ -35,6 +46,10 @@ public class Account {
     public Account(double startingBal, String n){
         this.balance = BigDecimal.valueOf(startingBal);
         this.name = n;
+    }
+
+    public void set2DP(){
+        balance = balance.setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public String getCurrency(){
