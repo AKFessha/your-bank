@@ -44,9 +44,9 @@ public class Database {
             PreparedStatement prep = connection.prepareStatement(insertions);
             Controller controller = new Controller();
             List<Account> accountsList = controller.getList();
-            for (int i = 0; i < controller.getList().size(); i++) {
-                prep.setString(1, controller.getList().get(i).getName());
-                prep.setBigDecimal(2, controller.getList().get(i).getBalance());
+            for (int i = 0; i < accountsList.size(); i++) {
+                prep.setString(1, accountsList.get(i).getName());
+                prep.setBigDecimal(2, accountsList.get(i).getBalance());
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
