@@ -1,0 +1,47 @@
+
+[
+  {
+    "bal": 50,
+    "name": "Rachel Green"
+  },
+  {
+    "bal": 100,
+    "name": "Monica Gellar"
+  },
+  {
+    "bal": 76,
+    "name": "Phoebe Buffay"
+  },
+  {
+    "bal": 23.9,
+    "name": "Joey Tribbiani"
+  },
+  {
+    "bal": 54.32,
+    "name": "Ross Gellar"
+  },
+  {
+    "bal": 3,
+    "name": "Chandler Bing"
+  },
+  {
+    "bal": 51500,
+    "name": "Barney Stinson"
+  },
+  {
+    "bal": 330.45,
+    "name": "Ted Mosby"
+  },
+  {
+    "bal": 756.8,
+    "name": "Lily Aldrin"
+  },
+  {
+    "bal": 254,
+    "name": "Marshall Eriksen"
+  },
+  {
+    "bal": 1635.52,
+    "name": "Robin Scherbatsky"
+  }
+]

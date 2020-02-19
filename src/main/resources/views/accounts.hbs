@@ -7,13 +7,20 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    <table>
+<br>
+    <table class="table table-dark">
+        <th>ID</th>
         <th>Name</th>
         <th>Balance</th>
+        <th>Currency</th>
+        <th>Account Type</th>
         {{#accounts}}
          <tr>
-             <td>{{name}}</td>
-             <td>£{{balance}}</td>
+             <td scope="col">{{id}}</td>
+             <td scope="col">{{name}}</td>
+             <td scope="col">{{balance}}</td>
+             <td scope="col">{{currency}}</td>
+             <td scope="col">{{accountType}}</td>
          </tr>
         {{/accounts}}
     </table>
