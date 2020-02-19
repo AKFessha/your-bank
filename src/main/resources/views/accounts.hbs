@@ -8,23 +8,26 @@
 </head>
 <body>
 <br>
-    <table class="table table-dark">
-        <th>ID</th>
-        <th>Name</th>
-        <th>Balance</th>
-        <th>Currency</th>
-        <th>Account Type</th>
-        <th>High Profile</th>
+ <h2 align="centre">Accounts </h2>
+ <br>
+    <table class="table">
+        <th class="table-dark">ID</th>
+        <th class="table-dark">Name</th>
+        <th class="table-dark">Balance</th>
+        <th class="table-dark">Currency</th>
+        <th class="table-dark">Account Type</th>
         {{#accounts}}
          <tr>
-             <td scope="col">{{id}}</td>
-             <td scope="col">{{name}}</td>
-             <td scope="col">{{balance}}</td>
-             <td scope="col">{{currency}}</td>
-             <td scope="col">{{accountType}}</td>
-             <td scope="col">{{highProfile}}</td>
+             <td scope="col" class ="table-primary">{{id}}</td>
+             <td scope="col" class ="table-primary">{{name}}</td>
+             <td scope="col" class ="table-primary">{{balance}}</td>
+             <td scope="col"class ="table-primary">{{currency}}</td>
+             <td scope="col" class ="table-primary">{{accountType}}</td>
          </tr>
         {{/accounts}}
     </table>
+    <footer>
+
+    </footer>
 </body>
 </html>
