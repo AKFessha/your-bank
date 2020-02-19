@@ -16,18 +16,6 @@ public class Controller {
     private List<Account> l = new ArrayList<>();
     public Controller(){
 
-        l.add(new Account(50.00, "Rachel Green"));
-        l.add(new Account(100.00, "Monica Gellar"));
-        l.add(new Account(76.00, "Phoebe Buffay"));
-        l.add(new Account(23.90, "Joey Tribbiani"));
-        l.add(new Account(54.32, "Ross Gellar"));
-        l.add(new Account(3.00, "Chandler Bing"));
-        l.add(new Account(51500.00, "Barney Stinson"));
-        l.add(new Account(330.45, "Ted Mosby"));
-        l.add(new Account(756.80, "Lily Aldrin"));
-        l.add(new Account(254.00, "Marshall Eriksen"));
-        l.add(new Account(1635.52, "Robin Scherbatsky"));
-
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
         }).getBody();
         for(int i = 0; i < apiAcc.size(); i++) {
