@@ -21,7 +21,7 @@ public class IntegrationTest {
     @Test
     public void testVFA() {
         Request req = new Request.Builder()
-                .url("http://localhost:" + "8080"+"/account/VFA")
+                .url("http://localhost:" + "8080"+"/VFA")
                 .build();
             try (Response rsp = client.newCall(req).execute()) {
                 assertEquals(200,rsp.code());
@@ -33,7 +33,7 @@ public class IntegrationTest {
     @Test
     public void testJson() throws JSONException {
         Request req = new Request.Builder()
-                .url("http://localhost:" + "8080"+"/account/json")
+                .url("http://localhost:" + "8080"+"/json")
                 .build();
         try (InputStream resourceAsStream = UnitTest.class.getResourceAsStream("/sum.json")) {
             String json = IOUtils.toString(resourceAsStream, "utf-8");
@@ -49,7 +49,7 @@ public class IntegrationTest {
     @Test
     public void testAPI() throws  JSONException{
         Request req = new Request.Builder()
-                .url("http://localhost:" + "8080"+"/account/api")
+                .url("http://localhost:" + "8080"+"/api")
                 .build();
         try (InputStream resourceAsStream = UnitTest.class.getResourceAsStream("/apitest.json")) {
             String json = IOUtils.toString(resourceAsStream, "utf-8");
