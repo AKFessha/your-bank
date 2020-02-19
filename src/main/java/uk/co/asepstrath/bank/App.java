@@ -65,29 +65,39 @@ public class App extends Jooby {
         // Fetch DB Source
         DataSource ds = require(DataSource.class);
         // Open Connection to DB
-        try (Connection connection = ds.getConnection()) {
+        try {
+            Connection connection = ds.getConnection();
             Statement stmt = connection.createStatement();
             //stmt.executeUpdate("CREATE TABLE Example (Key varchar(255),Value varchar(255))");
             //stmt.executeUpdate("INSERT INTO Example " + "VALUES ('WelcomeMessage', 'Welcome to A Bank')");
             String sql = "CREATE TABLE IF NOT EXISTS accounts (\n"
                     + " id SERIAL PRIMARY KEY,\n"
-                    + "name VARCHAR(20) NOT NULL,\n"
-                    + "balance FLOAT NOT NULL);";
-            stmt.execute(sql);
-            connection.close();
-            String insertion = "INSERT INTO employees (name, balance) "
-                    + "VALUES (?,?)";
-            PreparedStatement prep = connection.prepareStatement(insertion);
-            Controller c = new Controller();
-            prep.setString(1, c.l.get(0).getName());
-            prep.setBigDecimal(2, c.l.get(0).getBalance());
-            String exampleQuery = "SELECT * from accounts";
-            ResultSet rs = stmt.executeQuery(exampleQuery);
-            System.out.println(rs);
-        } catch (SQLException e) {
-            log.error("Database Creation Error",e);
-        }
+                    + " name VARCHAR(20) NOT NULL,\n"
+                    + " balance DECIMAL NOT NULL);";
+            stmt.executeUpdate(sql);
 
+            String insertions = "INSERT INTO accounts (name, balance) "
+                    + "VALUES (?,?);";
+            PreparedStatement prep = connection.prepareStatement(insertions);
+            Controller controller = new Controller();
+            List<Account> accountsList = controller.getList();
+            for(int i = 0; i < controller.getList().size(); i++) {
+                prep.setString(1, controller.getList().get(i).getName());
+                prep.setBigDecimal(2, controller.getList().get(i).getBalance());
+                prep.executeUpdate();
+            }
+
+            String exampleQuery = "SELECT * from accounts;";
+            ResultSet rs = stmt.executeQuery(exampleQuery);
+            //while(rs.next()) {
+            //    System.out.println(rs.getString("name"));
+            //}
+
+            connection.close();
+        } catch (SQLException e) {
+            //log.error("Database Creation Error",e);
+            e.printStackTrace();
+        }
     }
 
     /*
