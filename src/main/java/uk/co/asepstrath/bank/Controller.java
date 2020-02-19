@@ -36,6 +36,7 @@ public class Controller implements Comparable<BigDecimal>{
                 current.setHighProfile();
                 apiAcc.set(i, current);
             }
+            current.set2DP();
             l.add(apiAcc.get(i));
         }
     }
@@ -82,7 +83,7 @@ public class Controller implements Comparable<BigDecimal>{
 
     @Override
     public int compareTo(BigDecimal bigDecimal) {
-        if (this.compareTo(bigDecimal) == 1)
+        if (this.compareTo(bigDecimal) == 1 || this.compareTo(bigDecimal) == 0)
             return 1;
         else
             return -1;

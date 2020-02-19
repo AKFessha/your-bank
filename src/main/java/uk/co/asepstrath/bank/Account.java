@@ -2,7 +2,6 @@ package uk.co.asepstrath.bank;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 
 public class Account {
     private String id;
@@ -47,6 +46,10 @@ public class Account {
     public Account(double startingBal, String n){
         this.balance = BigDecimal.valueOf(startingBal);
         this.name = n;
+    }
+
+    public void set2DP(){
+        balance = balance.setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public String getCurrency(){
