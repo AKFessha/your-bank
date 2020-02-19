@@ -12,8 +12,6 @@ public class Account {
     private String highProfile = "No";
 
     public Account(){
-        this.balance = BigDecimal.ZERO;
-        this.name = "John Doe";
     }
 
     public Account(String id, String name, double balance, String currency, String accountType){
@@ -26,7 +24,7 @@ public class Account {
 
     public void setHighProfile(){
         if(accountType.equals("Savings Account") || accountType.equals("Checking Account")
-                || accountType.equals("Money Market Account") || accountType.equals("Investment Account")) {
+            || accountType.equals("Money Market Account") || accountType.equals("Investment Account")) {
             highProfile = "Yes";
         }
     }
@@ -83,7 +81,7 @@ public class Account {
         if(this.balance.compareTo(ammount) == -1){
             throw new ArithmeticException();
         }else {
-            this.balance =  this.balance.subtract(ammount);
+           this.balance =  this.balance.subtract(ammount);
         }
     }
 
