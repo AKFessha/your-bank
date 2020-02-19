@@ -16,24 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class UnitTest {
-    static OkHttpClient client = new OkHttpClient();
 
 
-    @Test
-    public void testJson() throws JSONException {
-        Request req = new Request.Builder()
-                .url("http://localhost:" + "8080"+"/account/json")
-                .build();
-        try (InputStream resourceAsStream = UnitTest.class.getResourceAsStream("/sum.json")) {
-            String json = IOUtils.toString(resourceAsStream, "utf-8");
-            try (Response rsp = client.newCall(req).execute()) {
-                JSONAssert.assertEquals(json,rsp.body().toString(),true);
-            }
 
-        } catch (IOException e) {
-        }
 
-    }
 
 
 }
