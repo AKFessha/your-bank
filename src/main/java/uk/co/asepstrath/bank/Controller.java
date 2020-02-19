@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-@Path("/account")
+@Path("/")
 public class Controller {
     private List<Account> l = new ArrayList<>();
     public Controller(){
