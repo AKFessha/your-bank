@@ -10,6 +10,7 @@ public class Account {
     private BigDecimal balance;
     private String currency;
     private String accountType;
+    private String highProfile = "No";
 
     public Account(){
         this.balance = BigDecimal.ZERO;
@@ -22,6 +23,17 @@ public class Account {
         this.balance = BigDecimal.valueOf(balance);
         this.currency = currency;
         this.accountType = accountType;
+    }
+
+    public void setHighProfile(){
+        if(accountType.equals("Savings Account") || accountType.equals("Checking Account")
+            || accountType.equals("Money Market Account") || accountType.equals("Investment Account")) {
+            highProfile = "Yes";
+        }
+    }
+
+    public String getHighProfile(){
+        return highProfile;
     }
 
     public String getName(){
