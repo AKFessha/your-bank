@@ -89,6 +89,7 @@ public class App extends Jooby {
 
             String exampleQuery = "SELECT * from accounts;";
             ResultSet rs = stmt.executeQuery(exampleQuery);
+
             //while(rs.next()) {
             //    System.out.println(rs.getString("name"));
             //}
