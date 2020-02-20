@@ -12,6 +12,7 @@ public class Account {
     private String highProfile = "No";
 
     public Account(){
+        this.balance = BigDecimal.ZERO;
     }
 
     public Account(String id, String name, double balance, String currency, String accountType){

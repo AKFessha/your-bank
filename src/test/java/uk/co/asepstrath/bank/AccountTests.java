@@ -23,23 +23,23 @@ public class AccountTests {
 
     @Test
     public void dep50I20(){
-        Account a = new Account();
+        Account a = new Account("1","John Doe",0,"Pounds","Savings Account");
         a.deposit(20);
         a.deposit(50);
-        assertEquals(BigDecimal.valueOf(70), a.getBalance());
+        assertEquals(BigDecimal.valueOf(70.0), a.getBalance());
     }
 
     @Test
     public void with20f40(){
-        Account a = new Account();
+        Account a = new Account("1","John Doe",0,"Pounds","Savings Account");
         a.deposit(40);
         a.withdraw(20);
-        assertEquals(BigDecimal.valueOf(20), a.getBalance());
+        assertEquals(BigDecimal.valueOf(20.0), a.getBalance());
     }
 
     @Test
     public void noOverdraft(){
-        Account a = new Account();
+        Account a = new Account("1","John Doe",0,"Pounds","Savings Account");
         a.deposit(30);
         assertThrows(ArithmeticException.class, () -> a.withdraw(100));
     }
