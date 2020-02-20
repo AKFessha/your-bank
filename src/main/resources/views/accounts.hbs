@@ -5,31 +5,43 @@
     <title>Accounts</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 </head>
 <body>
 <br>
  <h2 align="centre">Accounts </h2>
  <br>
-    <table class="table">
-        <th class="table-dark">ID</th>
-        <th class="table-dark">Name</th>
-        <th class="table-dark">Balance</th>
-        <th class="table-dark">Currency</th>
-        <th class="table-dark">Account Type</th>
-        <th class="table-dark">High Profile?</th>
-        {{#accounts}}
-         <tr>
-             <td scope="col" class ="table-primary">{{id}}</td>
-             <td scope="col" class ="table-primary">{{name}}</td>
-             <td scope="col" class ="table-primary">{{balance}}</td>
-             <td scope="col"class ="table-primary">{{currency}}</td>
-             <td scope="col" class ="table-primary">{{accountType}}</td>
-             <td scope="col" class ="table-primary">{{highProfile}}</td>
-         </tr>
-        {{/accounts}}
+    <table id="accountsTable" class = "table">
+        <thead>
+            <th class="table-dark">ID</th>
+            <th class="table-dark">Name</th>
+            <th class="table-dark">Balance</th>
+            <th class="table-dark">Currency</th>
+            <th class="table-dark">Account Type</th>
+            <th class="table-dark">High Profile?</th>
+        </thead>
+        <tbody>
+            {{#accounts}}
+                <tr>
+                    <td scope="col" class ="table-primary">{{id}}</td>
+                    <td scope="col" class ="table-primary">{{name}}</td>
+                    <td scope="col" class ="table-primary">{{balance}}</td>
+                    <td scope="col"class ="table-primary">{{currency}}</td>
+                    <td scope="col" class ="table-primary">{{accountType}}</td>
+                    <td scope="col" class ="table-primary">{{highProfile}}</td>
+                </tr>
+            {{/accounts}}
+        </tbody>
     </table>
     <footer>
 
     </footer>
+
+    <script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type = "text/javascript" charset = "utf8" src = "https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript" charset = "utf8" src = "https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script> $(document).ready(function() {$('#accountsTable').DataTable({"pageLength": 20})});
+    </script>
 </body>
 </html>
