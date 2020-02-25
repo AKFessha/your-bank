@@ -30,7 +30,9 @@ public class Database {
             String sql = "CREATE TABLE IF NOT EXISTS accounts (\n"
                     + " id SERIAL PRIMARY KEY,\n"
                     + " name VARCHAR(20) NOT NULL,\n"
-                    + " balance DECIMAL NOT NULL);";
+                    + " balance DECIMAL NOT NULL,\n"
+                    + " currency VARCHAR(20),\n"
+                    + " accountType VARCHAR(30));";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,14 +41,16 @@ public class Database {
 
     public void insertAccounts(Connection connection) {
         try {
-            String insertions = "INSERT INTO accounts (name, balance) "
-                    + "VALUES (?,?);";
+            String insertions = "INSERT INTO accounts (name, balance, currency, accountType) "
+                    + "VALUES (?,?,?,?);";
             PreparedStatement prep = connection.prepareStatement(insertions);
             Controller controller = new Controller();
             List<Account> accountsList = controller.getList();
             for (int i = 0; i < accountsList.size(); i++) {
                 prep.setString(1, accountsList.get(i).getName());
                 prep.setBigDecimal(2, accountsList.get(i).getBalance());
+                prep.setString(3, accountsList.get(i).getCurrency());
+                prep.setString(4, accountsList.get(i).getAccountType());
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
@@ -56,15 +60,18 @@ public class Database {
 
     public void configureQueries(Connection connection) {
         try {
-            // String selectAllQuery = "SELECT * from accounts;"; // return all accounts
+            String selectAllQuery = "SELECT * from accounts;"; // return all accounts
             String nameQuery = "SELECT * from accounts WHERE name LIKE ?"; // return accounts with certain name, parameter specified below
-            PreparedStatement prepQuery = connection.prepareStatement(nameQuery);
-            prepQuery.setString(1, "A%"); // parameter for array: starts with 'a';
+            PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery);
+            //prepQuery.setString(1, "A%"); // define parameter for query
             ResultSet rs = prepQuery.executeQuery();
+            //uncomment to print query results
             while (rs.next()) {
                 System.out.println(rs.getString("id"));
                 System.out.println(rs.getString("name"));
                 System.out.println(rs.getString("balance"));
+                System.out.println(rs.getString("currency"));
+                System.out.println(rs.getString("accountType"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
