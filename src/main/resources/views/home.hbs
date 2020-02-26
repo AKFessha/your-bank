@@ -5,11 +5,10 @@
     <style>
         body{text-align: center; height: 97.25vh; background-image:url('../assets/Background.jpg');background-size: cover; background-repeat: no-repeat;}
         h1{color: black; font-weight: bold; font-family: sans-serif; text-align: center;font-size: 5em; text-shadow: white 0 0 20px}
-        .jumbo{padding-left: 200px; padding-right:200px;}
+        .jumbo{padding-left: 200px; padding-right:200px; padding-bottom:50px;}
         .logo{height: 60px; width:60px; border-radius: 50%}
         .nav-item{ font-size: 25px; margin-left: 50px;}
         button{border-radius: 12px; width: 300px; height: 100px; font-family: sans-serif; font-size: larger; background-color: gray}
-        .centre{vertical-align: middle; padding: 80px 0}
     </style>
      <link rel = "stylesheet" href = "style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -20,7 +19,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
-  <a class="navbar-brand" href="/"><img class="logo" src="../assets/logo.jpg"/> </a>
+  <a class="navbar-brand" href="/"> <img class="logo" src="../assets/logo.jpg"/> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -45,18 +44,16 @@
     </form>
   </div>
 </nav>
-<div class = "centre">
-    <h1>Welcome to Team-2 Bank</h1>
-
-</div>
+<br>
+<h1 class = "text-centre">WELCOME TO TEAM-2 BANK</h1>
+<br>
 <div class = "jumbo">
 <div class="jumbotron">
-
   <h2 class="display-4">Our New Accounts</h2>
   <p class="lead">Simple banking with no monthly fee</p>
   <hr class="my-4">
   <p>You can view all the accounts by clicking the button below</p>
-  <a class="btn btn-success btn-lg" onclick="window.location.href = 'account';" role="button">View Accounts</a>
+  <a class="btn btn-success btn-lg" href = "account" role="button">View Accounts</a>
 </div>
 </div>
 </body>
