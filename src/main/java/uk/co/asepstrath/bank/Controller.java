@@ -68,7 +68,6 @@ public class Controller {
         return Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asString().getBody();
     }
 
-    @Override
     public int compareTo(BigDecimal bigDecimal) {
         if (this.compareTo(bigDecimal) == 1 || this.compareTo(bigDecimal) == 0)
             return 1;
