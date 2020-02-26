@@ -95,9 +95,9 @@ public class Controller {
             String id = t.get(i).getId();
             BigDecimal amount = t.get(i).getAmount();
             String currency = t.get(i).getCurrency();
-            model.put("wa", withdrawAccount);
-            model.put("da", depositAccount);
-            model.put("ts", timestamp);
+            model.put("withdrawAccount", withdrawAccount);
+            model.put("depositAccount", depositAccount);
+            model.put("timestamp", timestamp);
             model.put("id", id);
             model.put("amount", amount);
             model.put("currency", currency);
