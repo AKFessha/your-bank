@@ -10,10 +10,9 @@ import kong.unirest.Unirest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-
-@Path("/")
-public class Controller implements Comparable<BigDecimal>{
-    private List<Account> l = new ArrayList<>();
+@Path("/account")
+public class Controller {
+    List<Account> l = new ArrayList<>();
     public Controller(){
 
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
@@ -69,7 +68,6 @@ public class Controller implements Comparable<BigDecimal>{
         return Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asString().getBody();
     }
 
-    @Override
     public int compareTo(BigDecimal bigDecimal) {
         if (this.compareTo(bigDecimal) == 1 || this.compareTo(bigDecimal) == 0)
             return 1;

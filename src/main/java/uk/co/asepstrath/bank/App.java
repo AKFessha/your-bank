@@ -13,10 +13,7 @@ import org.slf4j.Logger;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,15 +65,7 @@ public class App extends Jooby {
         // Fetch DB Source
         DataSource ds = require(DataSource.class);
         // Open Connection to DB
-        try (Connection connection = ds.getConnection()) {
-            //
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE Example (Key varchar(255),Value varchar(255))");
-            stmt.executeUpdate("INSERT INTO Example " + "VALUES ('WelcomeMessage', 'Welcome to A Bank')");
-        } catch (SQLException e) {
-            log.error("Database Creation Error",e);
-        }
-
+        Database database = new Database(ds);
     }
 
     /*
