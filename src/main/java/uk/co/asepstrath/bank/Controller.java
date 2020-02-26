@@ -15,21 +15,15 @@ public class Controller {
     List<Account> l = new ArrayList<>();
     public Controller(){
 
-        l.add(new Account(50.00, "Rachel Green"));
-        l.add(new Account(100.00, "Monica Gellar"));
-        l.add(new Account(76.00, "Phoebe Buffay"));
-        l.add(new Account(23.90, "Joey Tribbiani"));
-        l.add(new Account(54.32, "Ross Gellar"));
-        l.add(new Account(3.00, "Chandler Bing"));
-        l.add(new Account(51500.00, "Barney Stinson"));
-        l.add(new Account(330.45, "Ted Mosby"));
-        l.add(new Account(756.80, "Lily Aldrin"));
-        l.add(new Account(254.00, "Marshall Eriksen"));
-        l.add(new Account(1635.52, "Robin Scherbatsky"));
-
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
         }).getBody();
         for(int i = 0; i < apiAcc.size(); i++) {
+            Account current = apiAcc.get(i);
+            if(current.getBalance().compareTo(BigDecimal.valueOf(50000))==1){
+                current.setHighProfile();
+                apiAcc.set(i, current);
+            }
+            current.set2DP();
             l.add(apiAcc.get(i));
         }
     }
@@ -46,7 +40,7 @@ public class Controller {
         }
 
 
-        @GET("/VFA")
+        @GET("/account")
         public ModelAndView accounts() {
         Map<String, Object> model = new HashMap<>();
 
@@ -56,6 +50,8 @@ public class Controller {
             String accountType = l.get(i).getAccountType();
             BigDecimal balance = l.get(i).getBalance();
             String name = l.get(i).getName();
+            String highProfile = l.get(i).getHighProfile();
+            model.put("highProfile", highProfile);
             model.put("currency", currency);
             model.put("id",id);
             model.put("accountType", accountType);
@@ -72,4 +68,11 @@ public class Controller {
         return Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asString().getBody();
     }
 
+    @Override
+    public int compareTo(BigDecimal bigDecimal) {
+        if (this.compareTo(bigDecimal) == 1 || this.compareTo(bigDecimal) == 0)
+            return 1;
+        else
+            return -1;
+    }
 }
