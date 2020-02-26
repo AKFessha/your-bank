@@ -25,8 +25,7 @@ public class Database {
     }
 
     public void createTable(Connection connection) {
-        try {
-            Statement stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS accounts (\n"
                     + " id SERIAL PRIMARY KEY,\n"
                     + " name VARCHAR(20) NOT NULL,\n"
@@ -40,10 +39,9 @@ public class Database {
     }
 
     public void insertAccounts(Connection connection) {
-        try {
-            String insertions = "INSERT INTO accounts (name, balance, currency, accountType) "
-                    + "VALUES (?,?,?,?);";
-            PreparedStatement prep = connection.prepareStatement(insertions);
+        String insertions = "INSERT INTO accounts (name, balance, currency, accountType) "
+                + "VALUES (?,?,?,?);";
+        try (PreparedStatement prep = connection.prepareStatement(insertions);) {
             Controller controller = new Controller();
             List<Account> accountsList = controller.getList();
             for (int i = 0; i < accountsList.size(); i++) {
@@ -59,10 +57,9 @@ public class Database {
     }
 
     public void configureQueries(Connection connection) {
-        try {
-            String selectAllQuery = "SELECT * from accounts;"; // return all accounts
-            String nameQuery = "SELECT * from accounts WHERE name LIKE ?"; // return accounts with certain name, parameter specified below
-            PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery);
+        String selectAllQuery = "SELECT * from accounts;";
+        String nameQuery = "SELECT * from accounts WHERE name LIKE ?";
+        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery);) {
             //prepQuery.setString(1, "A%"); // define parameter for query
             ResultSet rs = prepQuery.executeQuery();
             //uncomment to print query results
