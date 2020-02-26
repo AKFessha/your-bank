@@ -10,7 +10,7 @@ import kong.unirest.Unirest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-@Path("/account")
+@Path("/")
 public class Controller {
     List<Account> l = new ArrayList<>();
     public Controller(){
@@ -67,6 +67,12 @@ public class Controller {
         public String getDataFromWeb() {
         return Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asString().getBody();
     }
+
+    @GET("/")
+    public ModelAndView home(){
+        return new ModelAndView("home.hbs");
+    }
+
 
     public int compareTo(BigDecimal bigDecimal) {
         if (this.compareTo(bigDecimal) == 1 || this.compareTo(bigDecimal) == 0)
