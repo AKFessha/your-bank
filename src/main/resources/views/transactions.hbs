@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<table id="accountsTable" class = "table">
+    <thead>
+    <th class="table-dark">Withdraw Account</th>
+    <th class="table-dark">Deposit Account</th>
+    <th class="table-dark">Timestamp</th>
+    <th class="table-dark">ID</th>
+    <th class="table-dark">Amount</th>
+    <th class="table-dark">Currency</th>
+    </thead>
+    <tbody>
+    {{#transactions}}
+        <tr>
+            <td scope="col" class ="table-primary">{{withdrawAccount}}</td>
+            <td scope="col" class ="table-primary">{{depositAccount}}</td>
+            <td scope="col" class ="table-primary">{{timestamp}}</td>
+            <td scope="col"class ="table-primary">{{id}}</td>
+            <td scope="col" class ="table-primary">{{amount}}</td>
+            <td scope="col" class ="table-primary">{{currency}}</td>
+        </tr>
+    {{/transactions}}
+    </tbody>
+</table>
+</body>
+</html>
