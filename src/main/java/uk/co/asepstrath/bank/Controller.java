@@ -3,18 +3,19 @@ import com.google.gson.Gson;
 import io.jooby.ModelAndView;
 import io.jooby.annotations.*;
 import kong.unirest.GenericType;
-import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-import uk.co.asepstrath.bank.example.Transaction;
 
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
+
 @Path("/")
 public class Controller {
+
+    //Instance variables
     List<Account> l = new ArrayList<>();
     List<Transaction> t = new ArrayList<>();
+
     public Controller() {
 
         //Retrieve account and transaction data from the API
@@ -23,7 +24,6 @@ public class Controller {
         List<Transaction> apiTran = Unirest.get("http://api.asep-strath.co.uk/api/Team2/transactions").asObject(new GenericType<List<Transaction>>() {
         }).getBody();
 
-        System.out.println(apiTran);
         //Add accounts to List
         for (int i = 0; i < apiAcc.size(); i++) {
             Account current = apiAcc.get(i);
@@ -37,7 +37,9 @@ public class Controller {
 
         //Add transactions to List
         for (int j = 0; j < apiTran.size(); j++) {
-            t.add(apiTran.get(j));
+            Transaction current = apiTran.get(j);
+            current.set2DP();
+            t.add(current);
         }
     }
 
@@ -91,7 +93,7 @@ public class Controller {
             String depositAccount = t.get(i).getDepositAccount();
             String timestamp = t.get(i).getTimestamp();
             String id = t.get(i).getId();
-            int amount = t.get(i).getAmount();
+            BigDecimal amount = t.get(i).getAmount();
             String currency = t.get(i).getCurrency();
             model.put("wa", withdrawAccount);
             model.put("da", depositAccount);

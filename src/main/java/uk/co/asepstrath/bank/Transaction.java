@@ -1,4 +1,7 @@
-package uk.co.asepstrath.bank.example;
+package uk.co.asepstrath.bank;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Transaction {
 
@@ -7,15 +10,19 @@ public class Transaction {
     private String depositAccount;
     private String timestamp;
     private String id;
-    private int amount;
+    private BigDecimal amount;
     private String currency;
+
+    //Default constructor
+    public Transaction(){
+    }
 
     public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, int amount, String currency) {
         this.withdrawAccount = withdrawAccount;
         this.depositAccount = depositAccount;
         this.timestamp = timestamp;
         this.id = id;
-        this.amount = amount;
+        this.amount = BigDecimal.valueOf(amount);
         this.currency = currency;
     }
 
@@ -51,12 +58,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public int getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.amount = BigDecimal.valueOf(amount);
     }
 
     public String getCurrency() {
@@ -67,10 +74,8 @@ public class Transaction {
         this.currency = currency;
     }
 
-    public Transaction(){
-
+    public void set2DP(){
+        amount = amount.setScale(2, RoundingMode.HALF_EVEN);
     }
-
-
 
 }
