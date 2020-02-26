@@ -1,10 +1,5 @@
 package uk.co.asepstrath.bank;
 
-import kong.unirest.GenericType;
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonObjectMapper;
-import kong.unirest.Unirest;
-import uk.co.asepstrath.bank.example.ExampleController;
 import io.jooby.Jooby;
 import io.jooby.handlebars.HandlebarsModule;
 import io.jooby.helper.UniRestExtension;
@@ -12,10 +7,6 @@ import io.jooby.hikari.HikariModule;
 import org.slf4j.Logger;
 
 import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class App extends Jooby {
 
@@ -39,7 +30,7 @@ public class App extends Jooby {
         DataSource ds = require(DataSource.class);
         Logger log = getLog();
 
-        mvc(new ExampleController(ds,log));
+
         mvc(new Controller());
 
         /*

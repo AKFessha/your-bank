@@ -27,7 +27,7 @@ public class Controller {
         //Add accounts to List
         for (int i = 0; i < apiAcc.size(); i++) {
             Account current = apiAcc.get(i);
-            if (current.getBalance().compareTo(BigDecimal.valueOf(50000)) == 1) {
+            if(current.getBalance().compareTo(BigDecimal.valueOf(50000))>0){
                 current.setHighProfile();
                 apiAcc.set(i, current);
             }
