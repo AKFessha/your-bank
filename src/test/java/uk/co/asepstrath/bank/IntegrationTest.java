@@ -5,7 +5,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -20,7 +19,7 @@ public class IntegrationTest {
     static OkHttpClient client = new OkHttpClient();
 
     @Test
-    public void testVFA() {
+    public void testVFAHTTP200() {
         Request req = new Request.Builder()
                 .url("http://localhost:" + "8080"+"/VFA")
                 .build();
@@ -62,5 +61,56 @@ public class IntegrationTest {
         }
     }
 
+    @Test
+    public void testAccountPageHTTP200() {
+        Request req = new Request.Builder()
+                .url("http://localhost:" + "8080"+"/account")
+                .build();
+        try (Response rsp = client.newCall(req).execute()) {
+            assertEquals(200,rsp.code());
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testTransactionPageHTTP200() {
+        Request req = new Request.Builder()
+                .url("http://localhost:" + "8080"+"/transaction")
+                .build();
+        try (Response rsp = client.newCall(req).execute()) {
+            assertEquals(200,rsp.code());
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testHomePageHTTP200() {
+        Request req = new Request.Builder()
+                .url("http://localhost:" + "8080"+"/")
+                .build();
+        try (Response rsp = client.newCall(req).execute()) {
+            assertEquals(200,rsp.code());
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testJsonTrans() throws JSONException {
+        Request req = new Request.Builder()
+                .url("http://localhost:" + "8080"+"/jsonTRANS")
+                .build();
+        try (InputStream resourceAsStream = UnitTest.class.getResourceAsStream("/trans.json")) {
+            String json = IOUtils.toString(resourceAsStream, "utf-8");
+            try (Response rsp = client.newCall(req).execute()) {
+                JSONAssert.assertEquals(json,rsp.body().toString(),true);
+            }
+
+        } catch (IOException e) {
+        }
+
+    }
 
 }
