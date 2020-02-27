@@ -48,12 +48,14 @@ public class Controller {
     }
 
       @GET("/json")
-
       public String jasonEnd(){
-            String json = new Gson().toJson(l );
-            return json;
+            return new Gson().toJson(l);
         }
 
+        @GET("/jsonTRANS")
+        public String JSONTrans(){
+            return new Gson().toJson(t);
+        }
 
         @GET("/account")
         public ModelAndView accounts() {

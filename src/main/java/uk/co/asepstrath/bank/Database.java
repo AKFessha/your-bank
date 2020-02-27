@@ -1,6 +1,7 @@
 package uk.co.asepstrath.bank;
 
 import javax.sql.DataSource;
+import java.io.StringWriter;
 import java.sql.*;
 import java.util.List;
 
@@ -61,8 +62,8 @@ public class Database {
         String nameQuery = "SELECT * from accounts WHERE name LIKE ?";
         try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery);) {
             //prepQuery.setString(1, "A%"); // define parameter for query
-            ResultSet rs = prepQuery.executeQuery();
-            //uncomment to print query results
+            try(ResultSet rs = prepQuery.executeQuery()){
+                //uncomment to print query results
             /*while (rs.next()) {
                 System.out.println(rs.getString("id"));
                 System.out.println(rs.getString("name"));
@@ -71,6 +72,10 @@ public class Database {
                 System.out.println(rs.getString("accountType"));
             }
              */
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
