@@ -1,7 +1,12 @@
 package uk.co.asepstrath.bank;
 
+import kong.unirest.GenericType;
+import kong.unirest.Unirest;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Account {
     private String id;
@@ -93,6 +98,7 @@ public class Account {
             this.balance =  this.balance.subtract(BigDecimal.valueOf(ammount));
         }
     }
+
 
     @Override
     public String toString() {
