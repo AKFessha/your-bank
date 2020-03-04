@@ -43,6 +43,13 @@ public class Controller {
         }
     }
 
+    /*
+     * Get a list containing all of the transactions
+     */
+    public List<Transaction> getAllTransactions(){
+        return t;
+    }
+
     public List<Account> getList(){
         return l;
     }
@@ -110,10 +117,60 @@ public class Controller {
 
     @GET("/")
     public ModelAndView home(){
+        //TESTING CODE FOR REPEAT TRANSACTION
+        Account a = new Account("A", "TEST", 234.76, "CUR", "Type");
+        l.add(a);
+        System.out.println(a.getBalance());
+        Account b = new Account("B", "TEST", 500, "CUR", "Type");
+        l.add(b);
+        System.out.println(b.getBalance());
+        Transaction tt = new Transaction("A", "B", "Time", "ID", 200, "CUR");
+        t.add(tt);
+        repeatTransaction("ID");
+        System.out.println(a.getBalance());
+        System.out.println(b.getBalance());
+
         return new ModelAndView("home.hbs");
     }
 
+    public Account findAccount(String accountID){
+        Account found = null;
+        for(Account current: l){
+            if(current.getId().equals(accountID))
+                found = current;
+        }
+        return found;
+    }
 
+    public Transaction findTransaction(String transactionID){
+        Transaction found = null;
+        for(Transaction current: t){
+            if(current.getId().equals(transactionID))
+                found = current;
+        }
+        return found;
+    }
+
+    /*
+     * @param transactionID - the existing transaction
+     */
+    public void repeatTransaction(String transactionID){
+        Transaction toRepeat = findTransaction(transactionID);
+
+        if(toRepeat != null){
+            Account depAccount = this.findAccount(toRepeat.getDepositAccount());
+            Account withAccount = this.findAccount(toRepeat.getWithdrawAccount());
+            depAccount.deposit(toRepeat.getAmount());
+            withAccount.withdraw(toRepeat.getAmount());
+        }
+
+        //ELSE RETURN SOME MESSAGE TRANSACTION NOT FOUND
+
+    }
+
+    /*
+     * Compare two BigDecimal numbers
+     */
     public int compareTo(BigDecimal bigDecimal) {
         if (this.compareTo(bigDecimal) == 1 || this.compareTo(bigDecimal) == 0)
             return 1;
