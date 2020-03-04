@@ -117,19 +117,6 @@ public class Controller {
 
     @GET("/")
     public ModelAndView home(){
-        //TESTING CODE FOR REPEAT TRANSACTION
-        Account a = new Account("A", "TEST", 234.76, "CUR", "Type");
-        l.add(a);
-        System.out.println(a.getBalance());
-        Account b = new Account("B", "TEST", 500, "CUR", "Type");
-        l.add(b);
-        System.out.println(b.getBalance());
-        Transaction tt = new Transaction("A", "B", "Time", "ID", 200, "CUR");
-        t.add(tt);
-        repeatTransaction("ID");
-        System.out.println(a.getBalance());
-        System.out.println(b.getBalance());
-
         return new ModelAndView("home.hbs");
     }
 
