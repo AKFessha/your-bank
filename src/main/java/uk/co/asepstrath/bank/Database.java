@@ -73,8 +73,8 @@ public class Database {
                     System.out.println(rs.getString("currency"));
                     System.out.println(rs.getString("accountType"));
                     System.out.println(rs.getString("highProfile"));
-                    System.out.println("");*/
-            }
+                    System.out.println("");
+            }*/
 
             }catch (SQLException e){
                 e.printStackTrace();
