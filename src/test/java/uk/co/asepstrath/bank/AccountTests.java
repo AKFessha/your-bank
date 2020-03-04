@@ -1,6 +1,5 @@
 package uk.co.asepstrath.bank;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -66,6 +65,26 @@ public class AccountTests {
         a.deposit(17.56);
         assertEquals(BigDecimal.valueOf(23.01),a.getBalance());
 
+    }
+
+    @Test
+    public void HighProfileAccount(){
+        Account a = new Account("1","Jack Donnelly",150.50,"GDP","Investment Account");
+        a.setHighProfile();
+        assertEquals("Yes",a.getHighProfile());
+    }
+
+    @Test
+    public void CheckToString(){
+        String exp = "Account{" +
+                "id ='1'" +
+                ", name='Jack'" +
+                ", bal=150.05" +
+                ", currency ='GDP'" +
+                ", accountType ='Investment Account'" +
+                "}";
+        Account a = new Account("1","Jack",150.05,"GDP","Investment Account");
+        assertEquals(0,exp.compareTo(a.toString()));
     }
 
 }
