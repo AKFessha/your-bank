@@ -32,7 +32,8 @@ public class Database {
                     + " name VARCHAR(20) NOT NULL,\n"
                     + " balance DECIMAL NOT NULL,\n"
                     + " currency VARCHAR(20),\n"
-                    + " accountType VARCHAR(30));";
+                    + " accountType VARCHAR(30),\n"
+                    + " highProfile VARCHAR(3));";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,8 +41,8 @@ public class Database {
     }
 
     public void insertAccounts(Connection connection) {
-        String insertions = "INSERT INTO accounts (name, balance, currency, accountType) "
-                + "VALUES (?,?,?,?);";
+        String insertions = "INSERT INTO accounts (name, balance, currency, accountType, highProfile) "
+                + "VALUES (?,?,?,?,?);";
         try (PreparedStatement prep = connection.prepareStatement(insertions);) {
             Controller controller = new Controller();
             List<Account> accountsList = controller.getList();
@@ -50,6 +51,7 @@ public class Database {
                 prep.setBigDecimal(2, accountsList.get(i).getBalance());
                 prep.setString(3, accountsList.get(i).getCurrency());
                 prep.setString(4, accountsList.get(i).getAccountType());
+                prep.setString(5, accountsList.get(i).getHighProfile());
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
@@ -59,19 +61,21 @@ public class Database {
 
     public void configureQueries(Connection connection) {
         String selectAllQuery = "SELECT * from accounts;";
-        String nameQuery = "SELECT * from accounts WHERE name LIKE ?";
-        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery);) {
+        String highProfileQuery = "SELECT * from accounts WHERE highProfile = 'Yes'";
+        try (PreparedStatement prepQuery = connection.prepareStatement(highProfileQuery)) {
             //prepQuery.setString(1, "A%"); // define parameter for query
             try(ResultSet rs = prepQuery.executeQuery()){
                 //uncomment to print query results
-            /*while (rs.next()) {
-                System.out.println(rs.getString("id"));
-                System.out.println(rs.getString("name"));
-                System.out.println(rs.getString("balance"));
-                System.out.println(rs.getString("currency"));
-                System.out.println(rs.getString("accountType"));
+                /*while (rs.next()) {
+                    System.out.println(rs.getString("id"));
+                    System.out.println(rs.getString("name"));
+                    System.out.println(rs.getString("balance"));
+                    System.out.println(rs.getString("currency"));
+                    System.out.println(rs.getString("accountType"));
+                    System.out.println(rs.getString("highProfile"));
+                    System.out.println("");*/
             }
-             */
+
             }catch (SQLException e){
                 e.printStackTrace();
             }
