@@ -47,12 +47,13 @@
 </br>
 <table id="accountsTable" class = "table">
     <thead>
-    <th class="table-dark">Withdraw Account</th>
-    <th class="table-dark">Deposit Account</th>
-    <th class="table-dark">Timestamp</th>
-    <th class="table-dark">ID</th>
-    <th class="table-dark">Amount</th>
-    <th class="table-dark">Currency</th>
+        <th class="table-dark">Withdraw Account</th>
+        <th class="table-dark">Deposit Account</th>
+        <th class="table-dark">Timestamp</th>
+        <th class="table-dark">ID</th>
+        <th class="table-dark">Amount</th>
+        <th class="table-dark">Currency</th>
+        <th class="table-dark">Repeat Transaction</th>
     </thead>
     <tbody>
     {{#transactions}}
@@ -63,6 +64,7 @@
             <td scope="col"class ="table-primary">{{id}}</td>
             <td scope="col" class ="table-primary">{{amount}}</td>
             <td scope="col" class ="table-primary">{{currency}}</td>
+            <td scope="col" class ="table-primary"><button type="button">Repeat</button></td>
         </tr>
     {{/transactions}}
     </tbody>

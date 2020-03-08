@@ -41,6 +41,8 @@ public class Controller {
             current.set2DP();
             t.add(current);
         }
+
+        processExistingTransactions();
     }
 
     /*
@@ -125,6 +127,14 @@ public class Controller {
         return new ModelAndView("home.hbs");
     }
 
+    public void addAccount(Account toAdd){
+        l.add(toAdd);
+    }
+
+    public void addTransaction(Transaction toAdd){
+        t.add(toAdd);
+    }
+
     public Account findAccount(String accountID){
         Account found = null;
         for(Account current: l){
@@ -144,20 +154,32 @@ public class Controller {
     }
 
     /*
+     * Take all transactions from api and apply the deposit/withdraw amounts to each account
+     * only if the account is in our bank
+     */
+    public void processExistingTransactions(){
+        for(Transaction current: t){
+            processTransaction(current.getId());
+        }
+    }
+
+    public void processTransaction(String transactionID) {
+        Transaction toProcess = findTransaction(transactionID);
+
+        Account depAccount = this.findAccount(toProcess.getDepositAccount());
+        if(depAccount != null)
+            depAccount.deposit(toProcess.getAmount());
+        Account withAccount = this.findAccount(toProcess.getWithdrawAccount());
+        if(withAccount != null)
+            withAccount.withdraw(toProcess.getAmount());
+    }
+
+    /*
      * @param transactionID - the existing transaction
      */
     public void repeatTransaction(String transactionID){
         Transaction toRepeat = findTransaction(transactionID);
-
-        if(toRepeat != null){
-            Account depAccount = this.findAccount(toRepeat.getDepositAccount());
-            Account withAccount = this.findAccount(toRepeat.getWithdrawAccount());
-            depAccount.deposit(toRepeat.getAmount());
-            withAccount.withdraw(toRepeat.getAmount());
-        }
-
-        //ELSE RETURN SOME MESSAGE TRANSACTION NOT FOUND
-
+        processTransaction(toRepeat.getId());
     }
 
     /*
