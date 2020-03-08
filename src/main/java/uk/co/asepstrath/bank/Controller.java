@@ -108,6 +108,11 @@ public class Controller {
         return new ModelAndView("transactions.hbs", model);
 }
 
+    @GET("/savings")
+    public ModelAndView savings(){
+        return new ModelAndView("savings.hbs");
+    }
+
     @GET("/")
     public ModelAndView home(){
         return new ModelAndView("home.hbs");
