@@ -25,7 +25,7 @@ public class Controller {
         //Retrieve account and transaction data from the API
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
         }).getBody();
-        List<Transaction> apiTran = Unirest.get("http://api.asep-strath.co.uk/api/Team2/transactions").asObject(new GenericType<List<Transaction>>() {
+        List<Transaction> apiTran = Unirest.get("https://api.asep-strath.co.uk/api/team2/transactions?PageNumber=10&PageSize=50").asObject(new GenericType<List<Transaction>>() {
         }).getBody();
 
         HttpResponse<JsonNode> request = Unirest.get("https://api.asep-strath.co.uk/api/Team2/fraud").header("accept", "application/json").asJson();
