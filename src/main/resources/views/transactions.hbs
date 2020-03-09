@@ -53,6 +53,7 @@
         <th class="table-dark">ID</th>
         <th class="table-dark">Amount</th>
         <th class="table-dark">Currency</th>
+        <th class="table-dark">Fraudulent</th>
         <th class="table-dark">Repeat Transaction</th>
     </thead>
     <tbody>
@@ -64,11 +65,20 @@
             <td scope="col"class ="table-primary">{{id}}</td>
             <td scope="col" class ="table-primary">{{amount}}</td>
             <td scope="col" class ="table-primary">{{currency}}</td>
-            <td scope="col" class ="table-primary"><button type="button">Repeat</button></td>
+            <td scope="col" class ="table-primary">{{fraud}}</td>
+            <td scope="col" class ="table-primary"><button type="button"; onclick="repeatFunction('{{id}}');">Repeat</button></td>
         </tr>
     {{/transactions}}
     </tbody>
 </table>
+
+ <script>
+    function repeatFunction(myid){
+        window.location.href = "http://localhost:8080/repeat?id="+myid;
+        alert("Transaction repeated successfully");
+        window.location.href = "http://localhost:8080/transactions";
+    }
+ </script>
  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
