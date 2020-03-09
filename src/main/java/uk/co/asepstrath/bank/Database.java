@@ -15,7 +15,7 @@ public class Database {
         try {
             connection = ds.getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
 
         createTable(connection);
