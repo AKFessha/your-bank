@@ -18,6 +18,7 @@ public class Transaction{
     private String id;
     private BigDecimal amount;
     private String currency;
+    private String fraud;
 
     //Default constructor
     public Transaction(){
@@ -30,6 +31,19 @@ public class Transaction{
         this.id = id;
         this.amount = BigDecimal.valueOf(amount);
         this.currency = currency;
+        fraud = "No";
+    }
+
+    public String getFraud(){
+        return fraud;
+    }
+
+    public void setYesFraud(){
+        this.fraud = "Yes";
+    }
+
+    public void setNotFraud(){
+        this.fraud = "No";
     }
 
     public String getWithdrawAccount() {
