@@ -1,9 +1,15 @@
 package uk.co.asepstrath.bank;
 
+import kong.unirest.GenericType;
+import kong.unirest.Unirest;
+
+import java.awt.font.TransformAttribute;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Transaction {
+public class Transaction{
 
     //Instance variable
     private String withdrawAccount;
@@ -12,6 +18,7 @@ public class Transaction {
     private String id;
     private BigDecimal amount;
     private String currency;
+    private String fraud;
 
     //Default constructor
     public Transaction(){
@@ -24,6 +31,19 @@ public class Transaction {
         this.id = id;
         this.amount = BigDecimal.valueOf(amount);
         this.currency = currency;
+        fraud = "No";
+    }
+
+    public String getFraud(){
+        return fraud;
+    }
+
+    public void setYesFraud(){
+        this.fraud = "Yes";
+    }
+
+    public void setNotFraud(){
+        this.fraud = "No";
     }
 
     public String getWithdrawAccount() {
