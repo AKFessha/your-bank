@@ -10,6 +10,12 @@ import kong.unirest.json.JSONArray;
 
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Path("/")
@@ -202,13 +208,23 @@ public class Controller {
             withAccount.withdraw(toProcess.getAmount());
     }
 
+    public String getCurrentTime(){
+        Instant instant = Instant.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'").withZone(ZoneId.systemDefault());
+        String newTimeStamp = formatter.format(instant);
+        return newTimeStamp;
+    }
+
     /*
      * @param transactionID - the existing transaction
      */
     public void repeatTransaction(String transactionID){
         Transaction toRepeat = findTransaction(transactionID);
-        addTransaction(toRepeat);
-        processTransaction(toRepeat.getId());
+        String newID = UUID.randomUUID().toString();
+        Transaction newTransaction = new Transaction(toRepeat.getWithdrawAccount(), toRepeat.getDepositAccount(), getCurrentTime()
+                ,newID,toRepeat.getAmount(), toRepeat.getCurrency());
+        addTransaction(newTransaction);
+        processTransaction(newTransaction.getId());
     }
 
     public void addFraudTransaction(Transaction toAdd){
