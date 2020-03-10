@@ -208,8 +208,7 @@ public class Controller {
     public String getCurrentTime(){
         Instant instant = Instant.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS").withZone(ZoneId.systemDefault());
-        String newTimeStamp = formatter.format(instant);
-        return newTimeStamp;
+        return formatter.format(instant);
     }
 
     /*
