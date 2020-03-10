@@ -98,8 +98,4 @@ public class Transaction{
         amount = amount.setScale(2, RoundingMode.HALF_EVEN);
     }
 
-    public String getFraud(){
-        return
-    }
-
 }
