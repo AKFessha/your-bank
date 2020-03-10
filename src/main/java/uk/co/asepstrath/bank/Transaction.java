@@ -1,13 +1,7 @@
 package uk.co.asepstrath.bank;
 
-import kong.unirest.GenericType;
-import kong.unirest.Unirest;
-
-import java.awt.font.TransformAttribute;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Transaction{
 
