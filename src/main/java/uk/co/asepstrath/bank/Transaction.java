@@ -1,13 +1,7 @@
 package uk.co.asepstrath.bank;
 
-import kong.unirest.GenericType;
-import kong.unirest.Unirest;
-
-import java.awt.font.TransformAttribute;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Transaction{
 
@@ -24,12 +18,12 @@ public class Transaction{
     public Transaction(){
     }
 
-    public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, int amount, String currency) {
+    public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, BigDecimal amount, String currency) {
         this.withdrawAccount = withdrawAccount;
         this.depositAccount = depositAccount;
         this.timestamp = timestamp;
         this.id = id;
-        this.amount = BigDecimal.valueOf(amount);
+        this.amount = amount;
         this.currency = currency;
         fraud = "No";
     }

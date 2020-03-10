@@ -10,6 +10,9 @@ import kong.unirest.json.JSONArray;
 
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Path("/")
@@ -25,7 +28,7 @@ public class Controller {
         //Retrieve account and transaction data from the API
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
         }).getBody();
-        List<Transaction> apiTran = Unirest.get("https://api.asep-strath.co.uk/api/team2/transactions?PageNumber=10&PageSize=50").asObject(new GenericType<List<Transaction>>() {
+        List<Transaction> apiTran = Unirest.get("https://api.asep-strath.co.uk/api/team2/transactions?PageNumber=20&PageSize=50").asObject(new GenericType<List<Transaction>>() {
         }).getBody();
 
         HttpResponse<JsonNode> request = Unirest.get("https://api.asep-strath.co.uk/api/Team2/fraud").header("accept", "application/json").asJson();
@@ -207,13 +210,28 @@ public class Controller {
             withAccount.withdraw(toProcess.getAmount());
     }
 
+    public String getCurrentTime(){
+        Instant instant = Instant.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS").withZone(ZoneId.systemDefault());
+        return formatter.format(instant);
+    }
+
     /*
      * @param transactionID - the existing transaction
      */
     public void repeatTransaction(String transactionID){
         Transaction toRepeat = findTransaction(transactionID);
-        addTransaction(toRepeat);
-        processTransaction(toRepeat.getId());
+        String newID = UUID.randomUUID().toString();
+        Transaction newTransaction = new Transaction(toRepeat.getWithdrawAccount(), toRepeat.getDepositAccount(), getCurrentTime()
+                ,newID,toRepeat.getAmount(), toRepeat.getCurrency());
+        addTransaction(newTransaction);
+        for(String t: allFraudTransactions){
+            if(toRepeat.getId().equals(t)) {
+                newTransaction.setYesFraud();
+                addFraudTransaction(newTransaction);
+            }
+        }
+        processTransaction(newTransaction.getId());
     }
 
     public void addFraudTransaction(Transaction toAdd){
