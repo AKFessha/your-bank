@@ -24,12 +24,12 @@ public class Transaction{
     public Transaction(){
     }
 
-    public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, int amount, String currency) {
+    public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, BigDecimal amount, String currency) {
         this.withdrawAccount = withdrawAccount;
         this.depositAccount = depositAccount;
         this.timestamp = timestamp;
         this.id = id;
-        this.amount = BigDecimal.valueOf(amount);
+        this.amount = amount;
         this.currency = currency;
         fraud = "No";
     }
