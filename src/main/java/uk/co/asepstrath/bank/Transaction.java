@@ -3,7 +3,7 @@ package uk.co.asepstrath.bank;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Transaction {
+public class Transaction{
 
     //Instance variable
     private String withdrawAccount;
@@ -12,18 +12,32 @@ public class Transaction {
     private String id;
     private BigDecimal amount;
     private String currency;
+    private String fraud;
 
     //Default constructor
     public Transaction(){
     }
 
-    public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, int amount, String currency) {
+    public Transaction(String withdrawAccount, String depositAccount, String timestamp, String id, BigDecimal amount, String currency) {
         this.withdrawAccount = withdrawAccount;
         this.depositAccount = depositAccount;
         this.timestamp = timestamp;
         this.id = id;
-        this.amount = BigDecimal.valueOf(amount);
+        this.amount = amount;
         this.currency = currency;
+        fraud = "No";
+    }
+
+    public String getFraud(){
+        return fraud;
+    }
+
+    public void setYesFraud(){
+        this.fraud = "Yes";
+    }
+
+    public void setNotFraud(){
+        this.fraud = "No";
     }
 
     public String getWithdrawAccount() {

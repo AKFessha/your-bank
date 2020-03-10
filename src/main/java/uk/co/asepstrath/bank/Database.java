@@ -1,7 +1,6 @@
 package uk.co.asepstrath.bank;
 
 import javax.sql.DataSource;
-import java.io.StringWriter;
 import java.sql.*;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Database {
         try {
             connection = ds.getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
 
         createTable(connection);
@@ -36,7 +35,7 @@ public class Database {
                     + " highProfile VARCHAR(3));";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -55,7 +54,7 @@ public class Database {
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -77,11 +76,11 @@ public class Database {
             }*/
 
             }catch (SQLException e){
-                e.printStackTrace();
+                e.getMessage();
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -89,7 +88,7 @@ public class Database {
         try {
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 }

@@ -78,7 +78,7 @@ public class Account {
         return this.balance;
     }
 
-    public void withdraw(BigDecimal ammount) throws ArithmeticException{
+    public void withdraw(BigDecimal ammount){
         if(this.balance.compareTo(ammount) < 0){
             throw new ArithmeticException();
         }else {
@@ -86,13 +86,14 @@ public class Account {
         }
     }
 
-    public void withdraw(int ammount) throws ArithmeticException{
+    public void withdraw(int ammount){
         if(this.balance.compareTo(BigDecimal.valueOf(ammount)) < 0){
             throw new ArithmeticException();
         }else {
             this.balance =  this.balance.subtract(BigDecimal.valueOf(ammount));
         }
     }
+
 
     @Override
     public String toString() {
