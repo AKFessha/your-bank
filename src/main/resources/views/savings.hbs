@@ -10,6 +10,8 @@
         .jumbo{padding-left: 200px; padding-right:200px; padding-bottom:50px;}
         .logo{height: 60px; width:60px; border-radius: 50%}
         .nav-item{ font-size: 25px; margin-left: 50px;}
+        .nav-link {color: white !important;}
+        .nav-link:hover {color: orange !important;}
         button{border-radius: 10px; width: 200px; height: 50px; font-family: sans-serif; font-size: larger; background-color: green}
          .logo{height: 60px; width:60px; border-radius: 50%}
             .nav-item{ font-size: 25px; margin-left: 50px;}
@@ -82,13 +84,12 @@
 
 <script>
 
-
 function formData(){
 document.getElementById("savingsForm").style.display = "none"
 document.getElementById("results").style.display = "block"
 document.getElementById("resultText").style.display = "block"
 var amount = document.getElementById("amount").value;
-var interestRate = 2;
+var interestRate = 1;
 var interestRate = localStorage.getItem('interest');
 var newAmount = (amount * interestRate * 0.01).toFixed(2);
 document.getElementById("results").textContent = "£" + newAmount;
