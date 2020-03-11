@@ -85,9 +85,10 @@ document.getElementById("savingsForm").style.display = "none"
 document.getElementById("results").style.display = "block"
 document.getElementById("resultText").style.display = "block"
 var amount = document.getElementById("amount").value;
-var interestRate = 0.5;
-var newAmount = (amount * interestRate).toFixed(2);
-document.getElementById('results').textContent = "£" + newAmount;
+// var interestRate = 0.125;
+var interestRate = localStorage.getItem('interest');
+var newAmount = (amount * interestRate * 0.01).toFixed(2);
+document.getElementById("results").textContent = "£" + newAmount;
 
 
 }
