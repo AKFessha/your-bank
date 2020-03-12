@@ -60,11 +60,7 @@ public class Database {
         String selectAllQuery = "SELECT * from accounts;";
         try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery)) {
             //prepQuery.setString(1, "A%"); // define parameter for query
-            try(ResultSet rs = prepQuery.executeQuery()){
 
-            }catch (SQLException err){
-                err.getMessage();
-            }
 
         } catch (SQLException e) {
             e.getMessage();

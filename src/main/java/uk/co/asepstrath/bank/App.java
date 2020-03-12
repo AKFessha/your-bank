@@ -50,9 +50,6 @@ public class App extends Jooby {
         log.info("Starting Up...");
 
 
-        // Fetch DB Source
-        DataSource ds = require(DataSource.class);
-
     }
 
     /*
