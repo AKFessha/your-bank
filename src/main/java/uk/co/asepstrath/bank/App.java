@@ -6,8 +6,6 @@ import io.jooby.helper.UniRestExtension;
 import io.jooby.hikari.HikariModule;
 import org.slf4j.Logger;
 
-import javax.sql.DataSource;
-
 public class App extends Jooby {
 
     {
