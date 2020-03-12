@@ -79,7 +79,7 @@ public class Controller {
         }
 
         @GET("/jsonTRANS")
-        public String JSONTrans(){
+        public String jsonTRANS(){
             return new Gson().toJson(allTransactions);
         }
 

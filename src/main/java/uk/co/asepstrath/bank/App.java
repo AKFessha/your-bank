@@ -55,15 +55,15 @@ public class App extends Jooby {
 
         // Fetch DB Source
         DataSource ds = require(DataSource.class);
-        // Open Connection to DB
-        Database database = new Database(ds);
+
     }
 
     /*
     This function will be called when the application shuts down
      */
     public void onStop() {
-        System.out.println("Shutting Down...");
+        Logger log = getLog();
+        log.info("Shutting Down...");
     }
 
 }

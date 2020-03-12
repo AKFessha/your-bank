@@ -58,21 +58,12 @@ public class Database {
 
     public void configureQueries(Connection connection) {
         String selectAllQuery = "SELECT * from accounts;";
-        String nameQuery = "SELECT * from accounts WHERE name LIKE ?";
-        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery);) {
+        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery)) {
             //prepQuery.setString(1, "A%"); // define parameter for query
             try(ResultSet rs = prepQuery.executeQuery()){
-                //uncomment to print query results
-            /*while (rs.next()) {
-                System.out.println(rs.getString("id"));
-                System.out.println(rs.getString("name"));
-                System.out.println(rs.getString("balance"));
-                System.out.println(rs.getString("currency"));
-                System.out.println(rs.getString("accountType"));
-            }
-             */
-            }catch (SQLException e){
-                e.getMessage();
+
+            }catch (SQLException err){
+                err.getMessage();
             }
 
         } catch (SQLException e) {
