@@ -27,9 +27,6 @@ public class App extends Jooby {
         /*
         Now we set up our controllers and their dependencies
          */
-        DataSource ds = require(DataSource.class);
-        Logger log = getLog();
-
 
         mvc(new Controller());
 
