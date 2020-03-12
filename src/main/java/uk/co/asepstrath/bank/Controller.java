@@ -151,6 +151,11 @@ public class Controller {
         repeatTransaction(id);
     }
 
+    @GET("/reverse")
+    public void reverseATransaction(@QueryParam String id){
+        reverseTransaction(id);
+    }
+
     /**
      * Getter method for list of all transactions
      * @return the list of all transactions
@@ -301,6 +306,8 @@ public class Controller {
             newDeposit.deposit(toReverse.getAmount());
         if(newWithdraw != null)
             newWithdraw.withdraw(toReverse.getAmount());
+
+        allTransactions.remove(toReverse);
     }
 
     /**

@@ -56,4 +56,28 @@ public class TransactionTest {
         assertEquals(expectedDepositBalance, DepositAcc.getBalance());
 
     }
+
+    @Test
+    public void repeatTransaction(){
+        c.processTransaction(t.getId());
+        c.repeatTransaction(t.getId());
+
+        BigDecimal expectedWithdrawBalance = new BigDecimal(1656.90).setScale(1, RoundingMode.HALF_EVEN);
+        BigDecimal expectedDepositBalance = new BigDecimal(4353.09).setScale(2, RoundingMode.HALF_EVEN);
+
+        assertEquals(expectedWithdrawBalance, WithdrawAcc.getBalance());
+        assertEquals(expectedDepositBalance, DepositAcc.getBalance());
+    }
+
+    @Test
+    public void reverseTransaction(){
+        c.processTransaction(t.getId());
+        c.reverseTransaction(t.getId());
+
+        BigDecimal expectedWithdrawBalance = new BigDecimal(2456.90).setScale(1, RoundingMode.HALF_EVEN);
+        BigDecimal expectedDepositBalance = new BigDecimal(3553.09).setScale(2, RoundingMode.HALF_EVEN);
+
+        assertEquals(expectedWithdrawBalance, WithdrawAcc.getBalance());
+        assertEquals(expectedDepositBalance, DepositAcc.getBalance());
+    }
 }
