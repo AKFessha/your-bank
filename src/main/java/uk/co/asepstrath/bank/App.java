@@ -6,8 +6,6 @@ import io.jooby.helper.UniRestExtension;
 import io.jooby.hikari.HikariModule;
 import org.slf4j.Logger;
 
-import javax.sql.DataSource;
-
 public class App extends Jooby {
 
     {
@@ -27,9 +25,6 @@ public class App extends Jooby {
         /*
         Now we set up our controllers and their dependencies
          */
-        DataSource ds = require(DataSource.class);
-        Logger log = getLog();
-
 
         mvc(new Controller());
 
@@ -53,17 +48,14 @@ public class App extends Jooby {
         log.info("Starting Up...");
 
 
-        // Fetch DB Source
-        DataSource ds = require(DataSource.class);
-        // Open Connection to DB
-        Database database = new Database(ds);
     }
 
     /*
     This function will be called when the application shuts down
      */
     public void onStop() {
-        System.out.println("Shutting Down...");
+        Logger log = getLog();
+        log.info("Shutting Down...");
     }
 
 }

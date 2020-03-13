@@ -60,25 +60,8 @@ public class Database {
 
     public void configureQueries(Connection connection) {
         String selectAllQuery = "SELECT * from accounts;";
-        String highProfileQuery = "SELECT * from accounts WHERE highProfile = 'Yes'";
-        try (PreparedStatement prepQuery = connection.prepareStatement(highProfileQuery)) {
+        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery)) {
             //prepQuery.setString(1, "A%"); // define parameter for query
-            try(ResultSet rs = prepQuery.executeQuery()){
-                //uncomment to print query results
-                /*while (rs.next()) {
-                    System.out.println(rs.getString("id"));
-                    System.out.println(rs.getString("name"));
-                    System.out.println(rs.getString("balance"));
-                    System.out.println(rs.getString("currency"));
-                    System.out.println(rs.getString("accountType"));
-                    System.out.println(rs.getString("highProfile"));
-                    System.out.println("");
-            }*/
-
-            }catch (SQLException e){
-                e.getMessage();
-            }
-
         } catch (SQLException e) {
             e.getMessage();
         }

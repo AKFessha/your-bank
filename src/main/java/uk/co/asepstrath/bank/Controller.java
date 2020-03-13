@@ -28,7 +28,7 @@ public class Controller {
         //Retrieve account and transaction data from the API
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
         }).getBody();
-        List<Transaction> apiTran = Unirest.get("https://api.asep-strath.co.uk/api/team2/transactions?PageNumber=20&PageSize=50").asObject(new GenericType<List<Transaction>>() {
+        List<Transaction> apiTran = Unirest.get("https://api.asep-strath.co.uk/api/team2/transactions?PageNumber=1&PageSize=1000").asObject(new GenericType<List<Transaction>>() {
         }).getBody();
 
         HttpResponse<JsonNode> request = Unirest.get("https://api.asep-strath.co.uk/api/Team2/fraud").header("accept", "application/json").asJson();
@@ -42,12 +42,14 @@ public class Controller {
         //Add accounts to List
         for (int i = 0; i < apiAcc.size(); i++) {
             Account current = apiAcc.get(i);
-            if(current.getBalance().compareTo(BigDecimal.valueOf(50000))>0){
-                current.setHighProfile();
-                apiAcc.set(i, current);
+            if(current.getName().matches("[A-Za-z A-Za-z ]+")){
+                if (current.getBalance().compareTo(BigDecimal.valueOf(50000)) > 0) {
+                    current.setHighProfile();
+                    apiAcc.set(i, current);
+                }
+                current.set2DP();
+                allAccounts.add(apiAcc.get(i));
             }
-            current.set2DP();
-            allAccounts.add(apiAcc.get(i));
         }
 
         //Add transactions to List
@@ -77,7 +79,7 @@ public class Controller {
         }
 
         @GET("/jsonTRANS")
-        public String JSONTrans(){
+        public String jsonTRANS(){
             return new Gson().toJson(allTransactions);
         }
 
@@ -139,6 +141,11 @@ public class Controller {
     @GET("/savings")
     public ModelAndView savings(){
         return new ModelAndView("savings.hbs");
+    }
+
+    @GET("/admin")
+    public ModelAndView admin(){
+        return new ModelAndView("admin.hbs");
     }
 
     @GET("/")

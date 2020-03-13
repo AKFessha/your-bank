@@ -66,17 +66,21 @@
             <td scope="col" class ="table-primary">{{amount}}</td>
             <td scope="col" class ="table-primary">{{currency}}</td>
             <td scope="col" class ="table-primary">{{fraud}}</td>
-            <td scope="col" class ="table-primary"><button type="button"; onclick="repeatFunction('{{id}}');">Repeat</button></td>
+            <td scope="col" class ="table-primary"><button type="button"; onclick="repeatFunction('{{id}}', '{{fraud}}');">Repeat</button></td>
         </tr>
     {{/transactions}}
     </tbody>
 </table>
 
  <script>
-    function repeatFunction(myid){
-        window.location.href = "http://localhost:8080/repeat?id="+myid;
-        alert("Transaction repeated successfully");
-        window.location.href = "http://localhost:8080/transactions";
+    function repeatFunction(myid, fraud){
+        if(fraud == 'Yes')
+            alert("Cannot repeat a fraudulent transaction");
+        else {
+            window.location.href = "http://localhost:8080/repeat?id=" + myid;
+            alert("Transaction repeated successfully");
+            window.location.href = "http://localhost:8080/transactions";
+        }
     }
  </script>
  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
