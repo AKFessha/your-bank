@@ -8,6 +8,9 @@ public class Database {
 
     DataSource ds;
     Connection connection;
+    String connectionURL;
+    String connectionName;
+    String connectionPass;
 
     public Database(DataSource ds) {
         this.ds = ds;
@@ -19,9 +22,26 @@ public class Database {
         }
 
         createTable(connection);
-        insertAccounts(connection);
-        configureQueries(connection);
+        Controller controller = new Controller();
+        List<Account> accountsList = controller.getList();
+        insertAccounts(connection, accountsList);
+        configureQueries(connection, "SELECT * FROM accounts;");
         closeConnection(connection);
+    }
+
+    public Database(String connectionURL, String connectionName, String connectionPass) { // local connection for testing purposes
+        this.connectionURL = connectionURL;
+        this.connectionName = connectionName;
+        this.connectionPass = connectionPass;
+        try {
+            Class.forName("org.h2.Driver");
+            connection = DriverManager.getConnection(connectionURL, connectionName, connectionPass);
+        } catch (ClassNotFoundException e) {
+            e.getMessage();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        createTable(connection);
     }
 
     public void createTable(Connection connection) {
@@ -31,24 +51,24 @@ public class Database {
                     + " name VARCHAR(20) NOT NULL,\n"
                     + " balance DECIMAL NOT NULL,\n"
                     + " currency VARCHAR(20),\n"
-                    + " accountType VARCHAR(30));";
+                    + " accountType VARCHAR(30),\n"
+                    + " highProfile VARCHAR(3));";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.getMessage();
         }
     }
 
-    public void insertAccounts(Connection connection) {
-        String insertions = "INSERT INTO accounts (name, balance, currency, accountType) "
-                + "VALUES (?,?,?,?);";
+    public void insertAccounts(Connection connection, List<Account> accountsList) {
+        String insertions = "INSERT INTO accounts (name, balance, currency, accountType, highProfile) "
+                + "VALUES (?,?,?,?,?);";
         try (PreparedStatement prep = connection.prepareStatement(insertions);) {
-            Controller controller = new Controller();
-            List<Account> accountsList = controller.getList();
             for (int i = 0; i < accountsList.size(); i++) {
                 prep.setString(1, accountsList.get(i).getName());
                 prep.setBigDecimal(2, accountsList.get(i).getBalance());
                 prep.setString(3, accountsList.get(i).getCurrency());
                 prep.setString(4, accountsList.get(i).getAccountType());
+                prep.setString(5, accountsList.get(i).getHighProfile());
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
@@ -56,14 +76,14 @@ public class Database {
         }
     }
 
-    public void configureQueries(Connection connection) {
-        String selectAllQuery = "SELECT * from accounts;";
-        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery)) {
-            //prepQuery.setString(1, "A%"); // define parameter for query
-
-
+    public ResultSet configureQueries(Connection connection, String query) {
+        String selectAllQuery = query;
+        try (PreparedStatement prepQuery = connection.prepareStatement(query)) {
+            ResultSet resultSet = prepQuery.executeQuery();
+            return resultSet;
         } catch (SQLException e) {
             e.getMessage();
+            return null;
         }
     }
 
