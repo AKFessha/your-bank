@@ -8,6 +8,9 @@ public class Database {
 
     DataSource ds;
     Connection connection;
+    String connectionURL;
+    String connectionName;
+    String connectionPass;
 
     public Database(DataSource ds) {
         this.ds = ds;
@@ -19,9 +22,26 @@ public class Database {
         }
 
         createTable(connection);
-        insertAccounts(connection);
-        configureQueries(connection);
+        Controller controller = new Controller();
+        List<Account> accountsList = controller.getList();
+        insertAccounts(connection, accountsList);
+        configureQueries(connection, "SELECT * FROM accounts;");
         closeConnection(connection);
+    }
+
+    public Database(String connectionURL, String connectionName, String connectionPass) { // local connection for testing purposes
+        this.connectionURL = connectionURL;
+        this.connectionName = connectionName;
+        this.connectionPass = connectionPass;
+        try {
+            Class.forName("org.h2.Driver");
+            connection = DriverManager.getConnection(connectionURL, connectionName, connectionPass);
+        } catch (ClassNotFoundException e) {
+            e.getMessage();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        createTable(connection);
     }
 
     public void createTable(Connection connection) {
@@ -39,12 +59,10 @@ public class Database {
         }
     }
 
-    public void insertAccounts(Connection connection) {
+    public void insertAccounts(Connection connection, List<Account> accountsList) {
         String insertions = "INSERT INTO accounts (name, balance, currency, accountType, highProfile) "
                 + "VALUES (?,?,?,?,?);";
         try (PreparedStatement prep = connection.prepareStatement(insertions);) {
-            Controller controller = new Controller();
-            List<Account> accountsList = controller.getList();
             for (int i = 0; i < accountsList.size(); i++) {
                 prep.setString(1, accountsList.get(i).getName());
                 prep.setBigDecimal(2, accountsList.get(i).getBalance());
@@ -58,12 +76,14 @@ public class Database {
         }
     }
 
-    public void configureQueries(Connection connection) {
-        String selectAllQuery = "SELECT * from accounts;";
-        try (PreparedStatement prepQuery = connection.prepareStatement(selectAllQuery)) {
-            //prepQuery.setString(1, "A%"); // define parameter for query
+    public ResultSet configureQueries(Connection connection, String query) {
+        String selectAllQuery = query;
+        try (PreparedStatement prepQuery = connection.prepareStatement(query)) {
+            ResultSet resultSet = prepQuery.executeQuery();
+            return resultSet;
         } catch (SQLException e) {
             e.getMessage();
+            return null;
         }
     }
 
