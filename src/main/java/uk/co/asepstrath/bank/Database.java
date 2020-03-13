@@ -34,10 +34,7 @@ public class Database {
         this.connectionName = connectionName;
         this.connectionPass = connectionPass;
         try {
-            Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection(connectionURL, connectionName, connectionPass);
-        } catch (ClassNotFoundException e) {
-            e.getMessage();
         } catch (SQLException e) {
             e.getMessage();
         }
@@ -77,10 +74,8 @@ public class Database {
     }
 
     public ResultSet configureQueries(Connection connection, String query) {
-        String selectAllQuery = query;
         try (PreparedStatement prepQuery = connection.prepareStatement(query)) {
-            ResultSet resultSet = prepQuery.executeQuery();
-            return resultSet;
+            return prepQuery.executeQuery();
         } catch (SQLException e) {
             e.getMessage();
             return null;
