@@ -7,6 +7,7 @@ import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
 
 
 import java.math.BigDecimal;
@@ -270,6 +271,17 @@ public class Controller {
     }
 
     /**
+     * Get a timestamp of the instant of time this method was called. Format is in microseconds.
+     * This is appropriate for transaction reversal
+     * @return the timestamp in a format acceptable for transaction reversal
+     */
+    public String getReversalCurrentTime(){
+        Instant instant = Instant.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.systemDefault());
+        return formatter.format(instant);
+    }
+
+    /**
      * Repeat a transaction. Same deposit/withdraw accounts are used. A new transaction is created and
      * added to the list of all transactions. This will have a new ID and timestamp.
      * @param transactionID the ID of the transaction to be repeated
@@ -308,7 +320,31 @@ public class Controller {
             newWithdraw.withdraw(toReverse.getAmount());
 
         allTransactions.remove(toReverse);
+
+        //Notify other banks that a transaction regarding one of their accounts was reversed
+        if(newDeposit == null || newWithdraw == null)
+            notifyOtherBankOfReversal(transactionID);
+
     }
+
+    /**
+     * Notify another bank that a transaction reversal has taken place regarding one of
+     * their accounts
+     * @param transactionID the ID of the transaction that was reversed
+     */
+    public int notifyOtherBankOfReversal(String transactionID){
+
+        HttpResponse response =
+                Unirest.post("https://api.asep-strath.co.uk/api/Team2/reversal")
+                .header("accept", "*/*")
+                .header("Content-Type", "application/json")
+                .body("{\"transaction\": "+ "\"" + transactionID + "\",\"timestamp\": " + "\"" + getReversalCurrentTime() +
+                "\"}")
+                .asJson();
+
+        return response.getStatus();
+    }
+    //"transaction:" + transactionID +", timestamp:" + getReversalCurrentTime()
 
     /**
      * Check if a given transaction is fraudulent
