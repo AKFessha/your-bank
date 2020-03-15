@@ -1,8 +1,12 @@
 package uk.co.asepstrath.bank;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -54,6 +58,38 @@ public class TransactionTest {
 
         assertEquals(expectedWithdrawBalance, WithdrawAcc.getBalance());
         assertEquals(expectedDepositBalance, DepositAcc.getBalance());
+
+    }
+
+    @Test
+    public void repeatTransaction(){
+        c.processTransaction(t.getId());
+        c.repeatTransaction(t.getId());
+
+        BigDecimal expectedWithdrawBalance = new BigDecimal(1656.90).setScale(1, RoundingMode.HALF_EVEN);
+        BigDecimal expectedDepositBalance = new BigDecimal(4353.09).setScale(2, RoundingMode.HALF_EVEN);
+
+        assertEquals(expectedWithdrawBalance, WithdrawAcc.getBalance());
+        assertEquals(expectedDepositBalance, DepositAcc.getBalance());
+    }
+
+    @Test
+    public void reverseTransaction(){
+        c.processTransaction(t.getId());
+        c.reverseTransaction(t.getId());
+
+        BigDecimal expectedWithdrawBalance = new BigDecimal(2456.90).setScale(1, RoundingMode.HALF_EVEN);
+        BigDecimal expectedDepositBalance = new BigDecimal(3553.09).setScale(2, RoundingMode.HALF_EVEN);
+
+        assertEquals(expectedWithdrawBalance, WithdrawAcc.getBalance());
+        assertEquals(expectedDepositBalance, DepositAcc.getBalance());
+    }
+
+    @Test
+    public void notifyOtherBanks(){
+        Transaction toNotify = c.getAllTransactions().get(0);
+        int output = c.notifyOtherBankOfReversal(toNotify.getId());
+        assertEquals(202, output);
 
     }
 }
