@@ -344,7 +344,6 @@ public class Controller {
 
         return response.getStatus();
     }
-    //"transaction:" + transactionID +", timestamp:" + getReversalCurrentTime()
 
     /**
      * Check if a given transaction is fraudulent
@@ -359,6 +358,10 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Mark a transaction as fraudulent
+     * @param toAdd the transaction to mark
+     */
     public void addFraudTransaction(Transaction toAdd){
         allFraudTransactions.add(toAdd.getId());
     }
