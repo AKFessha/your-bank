@@ -45,7 +45,7 @@
 <br>
  <h2 class="text-center">ACCOUNTS </h2>
 
- <button class="btn btn-success btn-lg">Export to CSV File</button>
+ <button class="btn btn-success btn-lg" onclick="exportTableToCSV('accounts.csv')">Export to CSV File</button>
  <br>
  <br>
 
@@ -82,7 +82,6 @@
     <script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type = "text/javascript" charset = "utf8" src = "https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type = "text/javascript" charset = "utf8" src = "https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://www.YourSite.com/wp-content/JS/table-export.js"></script>
     <script> $(document).ready(function() {$('#accountsTable').DataTable({"pageLength": 20})}); </script>
     <script>
         function downloadCSV(csv, filename) {
