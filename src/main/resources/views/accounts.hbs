@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Accounts</title>
-    <link rel = "stylesheet" href = "style.css">
      <style>
          .logo{height: 60px; width:60px; border-radius: 50%;}
          .nav-item{font-size: 25px; margin-left: 50px;}
@@ -45,18 +44,20 @@
 <br>
  <h2 class="text-center">ACCOUNTS </h2>
 
- <button class="btn btn-success btn-lg">Export to CSV File</button>
+ <button class="btn btn-success btn-lg " onclick="exportTableToCSV('members.csv')">Export to CSV File</button>
  <br>
  <br>
 
     <table id="accountsTable" class = "table">
         <thead>
+        <tr>
             <th class="table-dark">ID</th>
             <th class="table-dark">Name</th>
             <th class="table-dark">Balance</th>
             <th class="table-dark">Currency</th>
             <th class="table-dark">Account Type</th>
             <th class="table-dark">High Profile?</th>
+        </tr>
         </thead>
         <tbody>
             {{#accounts}}
@@ -82,55 +83,51 @@
     <script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type = "text/javascript" charset = "utf8" src = "https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type = "text/javascript" charset = "utf8" src = "https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://www.YourSite.com/wp-content/JS/table-export.js"></script>
+
     <script> $(document).ready(function() {$('#accountsTable').DataTable({"pageLength": 20})}); </script>
     <script>
-   function download_csv(csv, filename) {
-       var csvFile;
-       var downloadLink;
+        function downloadCSV(csv, filename) {
+        var csvFile;
+        var downloadLink;
 
-       // CSV FILE
-       csvFile = new Blob([csv], {type: "text/csv"});
+        // CSV file
+        csvFile = new Blob([csv], {type: "text/csv"});
 
-       // Download link
-       downloadLink = document.createElement("a");
+        // Download link
+        downloadLink = document.createElement("a");
 
-       // File name
-       downloadLink.download = filename;
+        // File name
+        downloadLink.download = filename;
 
-       // We have to create a link to the file
-       downloadLink.href = window.URL.createObjectURL(csvFile);
+        // Create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
 
-       // Make sure that the link is not displayed
-       downloadLink.style.display = "none";
+        // Hide download link
+        downloadLink.style.display = "none";
 
-       // Add the link to DOM
-       document.body.appendChild(downloadLink);
+        // Add the link to DOM
+        document.body.appendChild(downloadLink);
 
-       downloadLink.click();
-   }
+        // Click download link
+        downloadLink.click();
+    }
 
-   function export_table_to_csv(html, filename) {
-   	var csv = [];
-   	var rows = document.querySelectorAll("table tr");
+        function exportTableToCSV(filename) {
+            var csv = [];
+            var rows = document.querySelectorAll("table tr");
 
-       for (var i = 0; i < rows.length; i++) {
-   		var row = [], cols = rows[i].querySelectorAll("td, th");
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
 
-           for (var j = 0; j < cols.length; j++)
-               row.push(cols[j].innerText);
+                for (var j = 0; j < cols.length; j++)
+                    row.push(cols[j].innerText);
 
-   		csv.push(row.join(","));
-   	}
+                csv.push(row.join(","));
+            }
 
-       // Download CSV
-       download_csv(csv.join("\n"), filename);
-   }
-
-   document.querySelector("button").addEventListener("click", function () {
-       var html = document.querySelector("table").outerHTML;
-   	export_table_to_csv(html, "team2-accounts.csv");
-   });
+            // Download CSV file
+            downloadCSV(csv.join("\n"), filename);
+        }
 
     </script>
 
