@@ -2,6 +2,7 @@ package uk.co.asepstrath.bank;
 
 import org.junit.jupiter.api.Test;
 
+import javax.naming.ldap.Control;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,6 +86,18 @@ public class AccountTests {
                 "}";
         Account a = new Account("1","Jack",150.05,"GDP","Investment Account");
         assertEquals(0,exp.compareTo(a.toString()));
+    }
+
+    @Test
+    public void highValue(){
+        Account a = new Account();
+        Controller c = new Controller();
+        boolean highValue = false;
+        c.setHighProfileThreshold(500000);
+        a.deposit(1000000);
+        if(a.getBalance().compareTo(c.getHighProfileThreshold()) > 0)
+            highValue = true;
+        assertTrue(highValue);
     }
 
 }
