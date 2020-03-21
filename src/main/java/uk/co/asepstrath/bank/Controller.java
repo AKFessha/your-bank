@@ -7,10 +7,9 @@ import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
-import kong.unirest.json.JSONObject;
-
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -23,8 +22,11 @@ public class Controller {
     private List<Account> allAccounts = new ArrayList<>();  //Holds every account with our bank
     private List<Transaction> allTransactions = new ArrayList<>();  //Holds every transaction object
     private List<String> allFraudTransactions = new ArrayList<>();  //Holds the ID of all fraudulent transactions
+    private BigDecimal highProfileThreshold;    //Threshold for a wealthy customer
 
     public Controller() {
+
+        highProfileThreshold = BigDecimal.valueOf(50000);   //Initially set to 50,000
 
         //Retrieve account data from the API
         List<Account> apiAcc = Unirest.get("http://api.asep-strath.co.uk/api/Team2/accounts").asObject(new GenericType<List<Account>>() {
@@ -47,11 +49,6 @@ public class Controller {
         for (int i = 0; i < apiAcc.size(); i++) {
             Account current = apiAcc.get(i);
             if(current.getName().matches("[A-Za-z A-Za-z ]+")){
-                if (current.getBalance().compareTo(BigDecimal.valueOf(50000)) > 0) {
-                    current.setHighProfile();
-                    apiAcc.set(i, current);
-                }
-                current.set2DP();
                 allAccounts.add(apiAcc.get(i));
             }
         }
@@ -82,6 +79,11 @@ public class Controller {
         Map<String, Object> model = new HashMap<>();
 
             for (Account allAccount : allAccounts) {
+                allAccount.setHighProfileFalse();
+                if (allAccount.getBalance().compareTo(highProfileThreshold) > 0)
+                    allAccount.setHighProfile();
+
+                allAccount.set2DP();
                 String currency = allAccount.getCurrency();
                 String id = allAccount.getId();
                 String accountType = allAccount.getAccountType();
@@ -145,6 +147,16 @@ public class Controller {
     @GET("/")
     public ModelAndView home(){
         return new ModelAndView("home.hbs");
+    }
+
+    @GET("/configure")
+    public ModelAndView configWealthy(){
+        return new ModelAndView("configWealthy.hbs");
+    }
+
+    @GET("/wealthy")
+    public void configWealthyCustomer(@QueryParam int newValue){
+        setHighProfileThreshold(newValue);
     }
 
     @GET("/repeat")
@@ -376,5 +388,21 @@ public class Controller {
             return 1;
         else
             return -1;
+    }
+
+    /**
+     * Retrieve the current set value for a wealthy customer
+     * @return the threshold for considering a customer high profile
+     */
+    public BigDecimal getHighProfileThreshold(){
+        return highProfileThreshold;
+    }
+
+    /**
+     * Set the threshold value for a customer to be considered wealthy
+     * @param value new value for considering a customer high profile
+     */
+    public void setHighProfileThreshold(int value){
+        highProfileThreshold = BigDecimal.valueOf(value);
     }
 }

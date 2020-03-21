@@ -55,6 +55,10 @@ public class Account {
         balance = balance.setScale(2, RoundingMode.HALF_EVEN);
     }
 
+    public void setHighProfileFalse(){
+        highProfile = "No";
+    }
+
     public String getCurrency(){
         return currency;
     }

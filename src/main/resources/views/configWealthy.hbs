@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuration</title>
+    <link rel = "stylesheet" href = "style.css">
+    <style>
+        body{text-align: center; height: 97.25vh; background-image:url('../assets/Background.jpg');background-size: cover; background-repeat: no-repeat;}
+        h1{color: black; font-weight: bold; font-family: sans-serif; text-align: center;font-size: 5em; text-shadow: white 0 0 20px}
+        .jumbo{padding-left: 200px; padding-right:200px; padding-bottom:50px;}
+        .logo{height: 60px; width:60px; border-radius: 50%}
+        .nav-item{ font-size: 25px; margin-left: 50px;}
+        .nav-link {color: white !important;}
+        .nav-link:hover {color: orange !important;}
+        button{border-radius: 10px; width: 200px; height: 50px; font-family: sans-serif; font-size: larger; background-color: green}
+        .logo{height: 60px; width:60px; border-radius: 50%}
+        .nav-item{ font-size: 25px; margin-left: 50px;}
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        #setter{
+            font-size:24px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+    <a class="navbar-brand" href="/"> <img class="logo" src="../assets/logo.png"/> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="account">Accounts </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transactions"  >Transactions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="savings"  >Savings Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="configure"  >Configuration</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div id="maincontent" style="margin-left:20px; margin-top:20px;">
+    <br>
+
+    <div class = "jumbo">
+        <div class="jumbotron">
+            <h1> Configure High Profile Customer Threshold</h1><br>
+            <div id="setter"><form>
+                Enter the new threshold:
+                <input type="number" id="value"
+                > </input> <br>
+                <br>
+                <button class="btn btn-success btn-lg" onclick="formData(); return false;" id="submitValue" >Submit</button>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+            </form>
+            </div>
+
+            <div id="resultText" style="display:none"> The threshold for a wealthy customer has been successfully updated to: </div>
+            <div id="results" style="display:none">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function configWealth(){
+        thresh = document.getElementById("value").value;
+        window.location.href = "http://localhost:8080/wealthy?newValue=" + thresh;
+    }
+
+    function formData() {
+        if (document.getElementById("value").value > 2147483647) {
+            alert("That threshold is too high, it must be less than 2,147,483,647");
+            return;
+        }
+
+        configWealth();
+        document.getElementById("setter").style.display = "none"
+        document.getElementById("results").style.display = "block"
+        document.getElementById("resultText").style.display = "block"
+        localStorage.setItem('value', document.getElementById("value").value);
+        newThreshold = document.getElementById("value").value;
+        document.getElementById("results").textContent = newThreshold;
+    }
+
+</script>
+
+</body>
+</html>
