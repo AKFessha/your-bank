@@ -21,8 +21,7 @@ maven_package:
 sonarqube-scan:
   stage: build
   before_script:
-  - apt-get update
-  - apt-get -y install jq
+  - yum -y install jq
   script:
   - mvn verify sonar:sonar $SONAR_CLI_OPTS
   - export url=$(cat ../target/.sonar/report-task.txt | grep ceTaskUrl | cut -c11- ) #URL where report gets stored
