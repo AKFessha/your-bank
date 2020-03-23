@@ -22,7 +22,7 @@ public class Controller {
     private List<Account> allAccounts = new ArrayList<>();  //Holds every account with our bank
     private List<Transaction> allTransactions = new ArrayList<>();  //Holds every transaction object
     private List<String> allFraudTransactions = new ArrayList<>();  //Holds the ID of all fraudulent transactions
-    private BigDecimal highProfileThreshold;    //Threshold for a wealthy customer
+    private BigDecimal highProfileThreshold;    //Threshold for a high profile customer
 
     public Controller() {
 
