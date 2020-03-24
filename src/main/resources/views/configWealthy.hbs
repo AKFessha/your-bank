@@ -106,7 +106,7 @@
         document.getElementById("resultText").style.display = "block"
         localStorage.setItem('value', document.getElementById("value").value);
         newThreshold = document.getElementById("value").value;
-        document.getElementById("results").textContent = newThreshold;
+        document.getElementById("results").textContent = (newThreshold * 1.00).toFixed(2);
     }
 
 </script>

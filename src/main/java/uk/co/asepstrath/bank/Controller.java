@@ -155,7 +155,7 @@ public class Controller {
     }
 
     @GET("/wealthy")
-    public void configWealthyCustomer(@QueryParam int newValue){
+    public void configWealthyCustomer(@QueryParam double newValue){
         setHighProfileThreshold(newValue);
     }
 
@@ -402,7 +402,7 @@ public class Controller {
      * Set the threshold value for a customer to be considered wealthy
      * @param value new value for considering a customer high profile
      */
-    public void setHighProfileThreshold(int value){
+    public void setHighProfileThreshold(double value){
         highProfileThreshold = BigDecimal.valueOf(value);
     }
 }
