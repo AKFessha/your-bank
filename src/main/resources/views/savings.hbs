@@ -30,6 +30,12 @@
         #savingsForm{
             font-size:24px;
         }
+        #results{
+            display: none;
+        }
+        #resultText{
+            display: none;
+        }
 
         </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -75,14 +81,14 @@
 <div id="savingsForm"><form>
      Please enter the amount you wish to save:
     <input type="number" id="amount"
-    > </input> <br>
+    >  <br>
     <br>
     <button class="btn btn-success btn-lg" onclick="formData(); return false;" id="submitAmount" >Submit</button>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
 </form>
 </div>
 
-<div id="resultText" style="display:none"> The amount of interest you could earn annually is: </div>
-<div id="results" style="display:none">
+<div id="resultText" > The amount of interest you could earn annually is: </div>
+<div id="results" >
 
 </div>
 </div>
